@@ -26,7 +26,7 @@ export default function HeroSection() {
           <a href="https://t.me/Trestan01" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-white transition-colors"><MessageCircle size={18} /><span>@Trestan01</span></a>
         </div>
         <div className="flex items-center gap-4 pt-4">
-          <a href="/Юмагулов Руслан Юрьевич РЦТ.pdf" download="Юмагулов Руслан Юрьевич РЦТ.pdf" className="bg-[#00d9ff] hover:bg-[#00b8e6] text-black font-bold px-6 py-3 rounded-md text-base flex items-center gap-2 transition-transform hover:scale-105"><Download size={20} /><span>Скачать резюме</span></a>
+          <a href="/resume-ruslan-yumagulov.pdf" download="resume-ruslan-yumagulov.pdf" className="bg-[#00d9ff] hover:bg-[#00b8e6] text-black font-bold px-6 py-3 rounded-md text-base flex items-center gap-2 transition-transform hover:scale-105"><Download size={20} /><span>Скачать резюме</span></a>
           <a href="#contact" className="bg-transparent border-2 border-[#00d9ff] text-[#00d9ff] hover:bg-[#00d9ff] hover:text-black font-bold px-6 py-3 rounded-md text-base flex items-center gap-2 transition-all hover:scale-105"><ExternalLink size={20} /><span>Связаться</span></a>
         </div>
       </div>

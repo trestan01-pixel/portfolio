@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { HashRouter, Routes, Route } from 'react-router-dom';
 import Index from './pages/Index';
 // ✅ Убедитесь, что этот импорт есть и путь правильный
 import { SvgFilters } from './components/SvgFilters'; 
@@ -9,11 +9,11 @@ const App = () => {
       {/* ✅ Убедитесь, что этот компонент вызывается здесь */}
       <SvgFilters />
       
-      <BrowserRouter>
+      <HashRouter>
         <Routes>
           <Route path="/" element={<Index />} />
         </Routes>
-      </BrowserRouter>
+      </HashRouter>
     </>
   );
 };
