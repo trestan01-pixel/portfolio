@@ -1,0 +1,9 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="630" fill="#1e1e2f"/>
+  <style>
+    .title { font: bold 90px 'Montserrat', sans-serif; fill: #00d9ff; }
+    .subtitle { font: 50px 'Inter', sans-serif; fill: #ffffff; }
+  </style>
+  <text x="600" y="280" text-anchor="middle" class="title">Руслан Юмагулов</text>
+  <text x="600" y="360" text-anchor="middle" class="subtitle">Руководитель по цифровой трансформации</text>
+</svg>

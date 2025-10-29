@@ -1,0 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-neutral-900: oklch(0.185 0 0);
+  }
+
+  body {
+    @apply bg-[#1e1e2f] text-gray-300 font-sans;
+    scroll-behavior: smooth;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading text-white;
+  }
+}
+
+/* ===== СТИЛИ ДЛЯ ВЫДЕЛЕНИЯ ТЕКСТА ===== */
+/* Этот блок не зависит от Tailwind и должен работать всегда */
+
+::selection {
+  background-color: rgba(0, 217, 255, 0.3);
+  color: #ffffff;
+}
+
+::-moz-selection { /* Для поддержки Firefox */
+  background-color: rgba(0, 217, 255, 0.3);
+  color: #ffffff;
+}
