@@ -1,8 +1,16 @@
 // src/components/HeroSection.tsx
 
+import { useCallback } from "react";
+import type { Container, Engine } from "tsparticles-engine";
+import Particles from "react-tsparticles";
+// ↓↓↓ ВОТ ПРАВИЛЬНЫЙ ИМПОРТ ДЛЯ loadSlim ↓↓↓
+import { loadSlim } from "tsparticles-slim"; 
+// ↑↑↑ ЭТОТ ИМПОРТ МЫ ВОЗВРАЩАЕМ
+
 import { Download, ExternalLink, Phone, Mail, MessageCircle } from 'lucide-react';
 import FlippingText from './FlippingText';
 
+// Компонент ScrollIndicator остается без изменений
 const ScrollIndicator = () => (
   <div className="w-8 h-14 border-2 border-[#00d9ff] rounded-full flex justify-center pt-2 animate-bounce">
     <div className="w-1 h-3 bg-[#00d9ff] rounded-full"></div>
@@ -10,29 +18,113 @@ const ScrollIndicator = () => (
 );
 
 export default function HeroSection() {
-  return (
-    <section className="bg-[#1e1e2f] text-white min-h-screen flex flex-col items-center justify-center text-center p-6 relative">
-      <div className="flex flex-col items-center space-y-6 md:space-y-8 max-w-4xl mx-auto">
-        <h1 className="text-5xl md:text-7xl font-extrabold tracking-wider text-[#00d9ff]">
-          Руслан Юмагулов
-        </h1>
-        <FlippingText />
-        <p className="text-lg text-gray-400">
-          Превращаю хаос в предсказумую систему для масштабирования вашего бизнеса.
-        </p>
-        <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-gray-300 pt-2">
-          <a href="tel:+79923500987" className="flex items-center gap-2 hover:text-white transition-colors"><Phone size={18} /><span>+7 (992) 350-09-87</span></a>
-          <a href="mailto:Trestan01@gmail.com" className="flex items-center gap-2 hover:text-white transition-colors"><Mail size={18} /><span>Trestan01@gmail.com</span></a>
-          <a href="https://t.me/Trestan01" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-white transition-colors"><MessageCircle size={18} /><span>@Trestan01</span></a>
+    const particlesInit = useCallback(async (engine: Engine) => {
+        // console.log(engine);
+        // Вы можете инициализировать tsParticles instance (engine) здесь, добавляя кастомные фигуры или пресеты
+        // эта строка загружает бандл tsparticles-slim, он содержит много базовых функций
+        await loadSlim(engine);
+    }, []);
+
+    const particlesLoaded = useCallback(async (container: Container | undefined) => {
+        // await console.log(container);
+    }, []);
+
+    return (
+      <section className="relative min-h-screen flex flex-col items-center justify-center text-center p-6">
+        <Particles
+            id="tsparticles"
+            init={particlesInit}
+            loaded={particlesLoaded}
+            options={{
+              background: {
+                color: {
+                  value: "#1e1e2f",
+                },
+              },
+              fpsLimit: 60,
+              interactivity: {
+                events: {
+                  onHover: {
+                    enable: true,
+                    mode: "repulse",
+                  },
+                  onClick: {
+                    enable: true,
+                    mode: "push",
+                  },
+                },
+                modes: {
+                  repulse: {
+                    distance: 100,
+                  },
+                  push: {
+                    quantity: 4,
+                  },
+                },
+              },
+              particles: {
+                color: {
+                  value: "#00d9ff",
+                },
+                links: {
+                  color: "#ffffff",
+                  distance: 150,
+                  enable: true,
+                  opacity: 0.2,
+                  width: 1,
+                },
+                move: {
+                  direction: "none",
+                  enable: true,
+                  outModes: {
+                    default: "bounce",
+                  },
+                  random: false,
+                  speed: 1,
+                  straight: false,
+                },
+                number: {
+                  density: {
+                    enable: true,
+                  },
+                  value: 80,
+                },
+                opacity: {
+                  value: 0.5,
+                },
+                shape: {
+                  type: "circle",
+                },
+                size: {
+                  value: { min: 1, max: 3 },
+                },
+              },
+              detectRetina: true,
+            }}
+        />
+
+        <div className="relative z-10 flex flex-col items-center space-y-6 md:space-y-8 max-w-4xl mx-auto">
+          <h1 className="text-5xl md:text-7xl font-extrabold tracking-wider text-[#00d9ff]">
+            Руслан Юмагулов
+          </h1>
+          <FlippingText />
+          <p className="text-lg text-gray-400">
+            Превращаю хаос в предсказумую систему для масштабирования вашего бизнеса.
+          </p>
+          <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-gray-300 pt-2">
+            <a href="tel:+79923500987" className="flex items-center gap-2 hover:text-white transition-colors"><Phone size={18} /><span>+7 (992) 350-09-87</span></a>
+            <a href="mailto:Trestan01@gmail.com" className="flex items-center gap-2 hover:text-white transition-colors"><Mail size={18} /><span>Trestan01@gmail.com</span></a>
+            <a href="https://t.me/Trestan01" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-white transition-colors"><MessageCircle size={18} /><span>@Trestan01</span></a>
+          </div>
+          <div className="flex items-center gap-4 pt-4">
+            <a href="./resume-ruslan-yumagulov.pdf" download="Резюме - Руслан Юмагулов.pdf" className="bg-[#00d9ff] hover:bg-[#00b8e6] text-black font-bold px-6 py-3 rounded-md text-base flex items-center gap-2 transition-transform hover:scale-105"><Download size={20} /><span>Скачать резюме</span></a>
+            <a href="#contact" className="bg-transparent border-2 border-[#00d9ff] text-[#00d9ff] hover:bg-[#00d9ff] hover:text-black font-bold px-6 py-3 rounded-md text-base flex items-center gap-2 transition-all hover:scale-105"><ExternalLink size={20} /><span>Связаться</span></a>
+          </div>
         </div>
-        <div className="flex items-center gap-4 pt-4">
-          <a href="/resume-ruslan-yumagulov.pdf" download="resume-ruslan-yumagulov.pdf" className="bg-[#00d9ff] hover:bg-[#00b8e6] text-black font-bold px-6 py-3 rounded-md text-base flex items-center gap-2 transition-transform hover:scale-105"><Download size={20} /><span>Скачать резюме</span></a>
-          <a href="#contact" className="bg-transparent border-2 border-[#00d9ff] text-[#00d9ff] hover:bg-[#00d9ff] hover:text-black font-bold px-6 py-3 rounded-md text-base flex items-center gap-2 transition-all hover:scale-105"><ExternalLink size={20} /><span>Связаться</span></a>
+
+        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-10">
+          <ScrollIndicator />
         </div>
-      </div>
-      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-10">
-        <ScrollIndicator />
-      </div>
-    </section>
-  );
+      </section>
+    );
 }
