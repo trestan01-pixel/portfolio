@@ -1,0 +1,42 @@
+/* src/print.css */
+
+/* По умолчанию, наш блок для печати НЕ виден на экране */
+.print-only {
+  display: none;
+}
+
+@media print {
+  /* 1. Прячем основной сайт, когда активирован режим печати */
+  main {
+    display: none !important;
+  }
+
+  /* 2. Показываем ТОЛЬКО блок резюме и стилизуем его для листа А4 */
+  .print-only {
+    display: block !important;
+    font-size: 10pt;
+    line-height: 1.4;
+    color: #000 !important;
+    background: #fff !important;
+  }
+
+  /* 3. Сбрасываем все лишние стили для чистого вида на бумаге */
+  * {
+    box-shadow: none !important;
+    text-shadow: none !important;
+    background: transparent !important;
+    color: #000 !important;
+  }
+  
+  /* 4. Настраиваем ссылки (чтобы в PDF они были кликабельны и видны) */
+  a, a:visited {
+    text-decoration: underline;
+    color: #0000EE !important;
+  }
+
+  /* 5. Предотвращаем "разрыв" блоков между страницами */
+  h2, h3, .break-inside-avoid {
+    page-break-after: avoid;
+    page-break-inside: avoid;
+  }
+}

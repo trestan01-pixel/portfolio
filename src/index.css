@@ -1,0 +1,164 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root { --color-neutral-900: oklch(0.185 0 0); }
+  html, body { 
+    @apply bg-[#0B0F19] text-gray-300 font-sans; 
+     
+  }
+}
+
+/* --- СИСТЕМНЫЙ КУРСОР --- */
+@media (min-width: 1024px) { * { cursor: none !important; } }
+@media (max-width: 1023px), (hover: none) { * { cursor: auto !important; } }
+
+/* --- ПЕРЕМЕННЫЕ TURBO FLOW --- */
+.react-flow {
+  --bg-node: #0B0F19;
+  --color-cyan: #22d3ee;
+  --color-purple: #a855f7;
+  --node-color-primary: #22d3ee; 
+  --node-color-secondary: #a855f7;
+  --text-node: #ffffff;
+  --handle-color: #22d3ee;
+}
+
+/* --- СВЕТЛАЯ ТЕМА --- */
+html[data-theme="light"] body { background-color: #e5e7eb; color: #111827; }
+html[data-theme="light"] .react-flow {
+  --bg-node: #ffffff;
+  --text-node: #111827; /* Текст становится черным */
+  --node-color-primary: #0284c7; 
+  --node-color-secondary: #7c3aed;
+  --handle-color: #0284c7;
+}
+
+/* --- СТИЛИ УЗЛОВ --- */
+.turbo-node { position: relative; transition: all 0.3s ease; filter: drop-shadow(0 0 10px rgba(0,0,0,0.3)); }
+.turbo-node.selected { filter: drop-shadow(0 0 15px var(--node-color-primary)); z-index: 10; transform: scale(1.01); }
+
+.turbo-wrapper { position: relative; overflow: hidden; padding: 2px; background: #374151; width: 100%; height: 100%; }
+.turbo-wrapper::before {
+  content: ''; position: absolute; width: 300%; padding-bottom: 300%; 
+  top: 50%; left: 50%; translate: -50% -50%;
+  background: conic-gradient(from 0deg, var(--node-color-primary), var(--node-color-secondary), var(--node-color-primary), var(--node-color-secondary), var(--node-color-primary));
+  animation: spin 4s linear infinite; z-index: 0;
+}
+.turbo-node.selected .turbo-wrapper::before { animation: spin 2s linear infinite; }
+@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+.turbo-inner { position: relative; background: var(--bg-node); height: 100%; width: 100%; z-index: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+
+/* --- ФОРМЫ УЗЛОВ --- */
+.shape-rectangle .turbo-wrapper, .shape-rectangle .turbo-inner { border-radius: 12px; }
+.shape-circle .turbo-wrapper, .shape-circle .turbo-inner { border-radius: 50%; }
+.shape-circle .turbo-inner { padding: 10px; text-align: center; }
+.shape-diamond .turbo-wrapper { clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%); padding: 0; background: transparent; transform: none; box-shadow: none; }
+.shape-diamond .turbo-wrapper::before { width: 300%; padding-bottom: 300%; }
+.shape-diamond .turbo-inner { clip-path: polygon(50% 2.5px, calc(100% - 2.5px) 50%, 50% calc(100% - 2.5px), 2.5px 50%); background: var(--bg-node); position: absolute; inset: 0; border-radius: 0; }
+.shape-diamond .turbo-content-rotator { transform: none; width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 15% 20%; }
+.shape-diamond .turbo-cloud { top: 0px; right: 0px; }
+.shape-triangle .turbo-wrapper { clip-path: polygon(50% 0%, 0% 100%, 100% 100%); padding: 0; background: transparent; }
+.shape-triangle .turbo-inner { clip-path: polygon(50% 2px, 2px calc(100% - 1px), calc(100% - 2px) calc(100% - 1px)); background: var(--bg-node); position: absolute; inset: 0; }
+.shape-triangle .turbo-content-rotator { margin-top: 20%; }
+.shape-triangle .turbo-cloud { top: 10px; right: -5px; }
+
+/* --- ИКОНКА СТАТУСА --- */
+.turbo-cloud { position: absolute; top: -10px; right: -10px; width: 26px; height: 26px; border-radius: 50%; background: var(--bg-node); border: 2px solid var(--node-color-primary); display: flex; align-items: center; justify-content: center; z-index: 20; box-shadow: 0 4px 10px rgba(0,0,0,0.5); }
+.shape-circle .turbo-cloud { top: 0px; right: 0px; }
+
+/* --- РУЧКИ СОЕДИНЕНИЯ (HANDLES) --- */
+.react-flow__handle {
+  width: 10px; height: 10px;
+  background: var(--bg-node);
+  border: 2px solid var(--handle-color);
+  border-radius: 50%;
+  z-index: 50;
+  opacity: 0; /* Скрыты по умолчанию */
+  transition: opacity 0.2s ease;
+  cursor: none !important;
+}
+.react-flow__node:hover .react-flow__handle,
+.react-flow__node.selected .react-flow__handle {
+  opacity: 1; /* Показываем при наведении/выделении */
+}
+.react-flow__handle:hover {
+  background: var(--handle-color);
+  box-shadow: 0 0 10px var(--handle-color);
+  transform: scale(1.2);
+}
+
+/* --- СТИЛИ СТРЕЛОК (EDGES) --- */
+
+/* Контейнер для меток (для z-index) */
+.react-flow__edge-labels {
+  z-index: 10;
+}
+
+/* Кастомная метка для "разрыва" */
+.turbo-edge-label {
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-family: monospace;
+  font-size: 12px;
+  font-weight: bold;
+  pointer-events: all;
+  cursor: pointer;
+  
+  /* ЦВЕТА (Темная тема) */
+  background: #0B0F19;
+  color: #ffffff;
+  /* Тень того же цвета, что и фон, чтобы "съесть" свечение линии */
+  box-shadow: 0 0 0 8px #0B0F19;
+}
+
+/* ЦВЕТА (Светлая тема) */
+html[data-theme="light"] .turbo-edge-label {
+  background: #f3f4f6;
+  color: #111827;
+  box-shadow: 0 0 0 8px #f3f4f6;
+}
+
+/* Анимация "сигнала" для кастомной стрелки */
+@keyframes signal-flow {
+  from { stroke-dashoffset: 20; }
+  to { stroke-dashoffset: 0; }
+}
+.animate-signal {
+  stroke-dasharray: 10 10;
+  animation: signal-flow 1s linear infinite;
+}
+/* Добавь это в конец файла src/index.css */
+
+/* --- CUSTOM SCROLLBAR --- */
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #22d3ee #0B0F19;
+}
+
+/* Chrome, Edge, and Safari */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #1f2937; /* Цвет бегунка */
+  border-radius: 20px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #22d3ee; /* Цвет при наведении */
+}
+
+/* --- СИСТЕМНОЕ --- */
+.react-flow .react-flow__pane { pointer-events: auto; }
+.react-flow__node, .react-flow__controls, .react-flow__edge-updater { pointer-events: auto; }
