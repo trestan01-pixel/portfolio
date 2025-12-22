@@ -2,12 +2,63 @@ import React, { useEffect, useState } from 'react';
 import { 
   Printer, Check, ShieldAlert, AlertTriangle, AlertCircle, 
   TrendingUp, Users, Settings, PieChart, Compass, BrainCircuit, Skull, 
-  FileText, Send
+  FileText, Send, animate
 } from 'lucide-react';
 import { motion, useMotionValue, AnimatePresence } from 'framer-motion';
 
-// --- ИМПОРТИРУЕМ ОБА КОМПОНЕНТА ---
-import AuditForm from './AuditForm'; // Форма отправки
+import AuditForm from '../../components/AuditForm';
+
+// --- КОМПОНЕНТ ПРОГРЕСС-БАРА (с анимацией появления/исчезновения) ---
+// Я добавил анимацию появления/исчезновения (initial, animate, exit)
+const ProgressBar: React.FC<{ count: number }> = ({ count }) => {
+  const total = 30;
+  const progress = (count / total) * 100;
+
+  let barColorClass = 'bg-green-500';
+  let statusText = 'Все под контролем';
+  if (count > 5) {
+    barColorClass = 'bg-yellow-500';
+    statusText = 'Обнаружено кровотечение';
+  }
+  if (count > 15) {
+    barColorClass = 'bg-red-500';
+    statusText = 'Критическое состояние';
+  }
+  if (count === 30) {
+    statusText = 'SYSTEM FAILURE';
+  }
+
+  return (
+    <motion.div 
+      className="print-hide fixed top-0 left-0 right-0 z-50 bg-[#0B0F19]/80 backdrop-blur-md border-b border-slate-800 shadow-lg"
+      initial={{ y: "-100%", opacity: 0 }}
+      animate={{ y: "0%", opacity: 1 }}
+      exit={{ y: "-100%", opacity: 0 }}
+      transition={{ duration: 0.3, ease: "easeInOut" }}
+    >
+      <div className="max-w-4xl mx-auto p-3">
+        <div className="flex justify-between items-center mb-1">
+          <p className="text-sm font-bold text-cyan-400 font-mono">
+            Уровень Хаоса: <span className="text-white">{statusText}</span>
+          </p>
+          <p className="text-sm font-bold text-white font-mono">
+            {count} / {total}
+          </p>
+        </div>
+        <div className="w-full bg-slate-800 rounded-full h-2.5 overflow-hidden">
+          <motion.div
+            className={`h-2.5 rounded-full transition-colors duration-300 ${barColorClass}`}
+            initial={{ width: '0%' }}
+            animate={{ width: `${progress}%` }}
+            transition={{ type: 'spring', stiffness: 50, damping: 15 }}
+          />
+        </div>
+      </div>
+    </motion.div>
+  );
+};
+
+// ... дальше идет ваш компонент const ChaosAuditPage = () => { ... }
 
 // --- 1. УМНЫЙ КУРСОР (без изменений) ---
 const CustomCursor = () => {
@@ -105,15 +156,30 @@ const auditData = {
 const Barcode = () => ( <div className="flex items-end gap-[2px] opacity-40 h-8"> {[...Array(30)].map((_, i) => ( <div key={i} className="bg-white" style={{ width: Math.random() > 0.5 ? '1px' : '3px', height: Math.random() > 0.3 ? '100%' : '60%' }} /> ))} </div> );
 const IntroChart = () => ( <div className="relative w-full h-48 md:h-64 bg-[#090c15] border border-slate-800 rounded-xl p-4 overflow-hidden group hover:border-slate-600 transition-colors"> <p className="text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">Прогноз потери выручки</p> <svg viewBox="0 0 400 200" className="w-full h-full"> <line x1="0" y1="180" x2="400" y2="180" stroke="#334155" strokeWidth="1" strokeDasharray="4 4" /> <line x1="0" y1="120" x2="400" y2="120" stroke="#334155" strokeWidth="1" strokeDasharray="4 4" opacity="0.5" /> <path d="M10 180 C 100 170, 200 100, 390 50" fill="none" stroke="#10b981" strokeWidth="2" /> <text x="320" y="40" fill="#10b981" fontSize="10" fontWeight="bold">Потенциал Рынка</text> <path d="M10 180 C 100 175, 200 190, 250 210" fill="none" stroke="#ef4444" strokeWidth="3" /> <path d="M10 180 C 100 175, 200 190, 250 210 L 10 210 Z" fill="url(#redGradient)" opacity="0.2" /> <defs> <linearGradient id="redGradient" x1="0" y1="0" x2="0" y2="1"> <stop offset="0%" stopColor="#ef4444" /> <stop offset="100%" stopColor="transparent" /> </linearGradient> </defs> <circle cx="10" cy="180" r="3" fill="#3b82f6" /> </svg> <div className="absolute bottom-4 right-4 bg-red-950/80 border border-red-900 text-red-500 text-[10px] px-2 py-1 uppercase tracking-wider font-bold rounded shadow-[0_0_10px_red]"> Ваша траектория </div> </div> );
 
-const PrintChecklist = () => {
+const ChaosAuditPage = () => {
   const [checkedItems, setCheckedItems] = useState<Record<number, boolean>>({});
   const [forceBlankMode, setForceBlankMode] = useState(false);
+  const [isBarVisible, setIsBarVisible] = useState(false);
 
+  
   const toggleCheck = (id: number) => setCheckedItems(prev => ({...prev, [id]: !prev[id]}));
   const checkedCount = Object.values(checkedItems).filter(Boolean).length;
   const isTotalFailure = checkedCount === 30;
   
   const isReportMode = checkedCount > 0 && !forceBlankMode;
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 200) { // Показываем после прокрутки на 200px
+        setIsBarVisible(true);
+      } else {
+        setIsBarVisible(false);
+      }
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
 
   const handlePrintBlank = () => {
     setForceBlankMode(true);
@@ -142,7 +208,9 @@ const PrintChecklist = () => {
 
   return (
     <div className="bg-[#050810] text-slate-300 min-h-screen relative font-sans overflow-x-hidden selection:bg-cyan-500/30 selection:text-cyan-100 cursor-none">
-      
+      <AnimatePresence>
+        {isBarVisible && <ProgressBar count={checkedCount} />}
+      </AnimatePresence>
       <div className="fixed inset-0 z-0 opacity-15 pointer-events-none" 
            style={{ backgroundImage: 'linear-gradient(#1e293b 1px, transparent 1px), linear-gradient(90deg, #1e293b 1px, transparent 1px)', backgroundSize: '50px 50px' }}>
       </div>
@@ -266,4 +334,4 @@ const PrintChecklist = () => {
   );
 };
 
-export default PrintChecklist;
+export default ChaosAuditPage;

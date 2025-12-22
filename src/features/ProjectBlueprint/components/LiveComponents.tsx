@@ -102,10 +102,13 @@ export const DoDontExample = () => (
     </div>
   </div>
 );
-
-// --- КОМПОНЕНТ CHANGELOG v2.1 ---
-
+const PRODUCT_COLORS: { [key: string]: string } = {
+  'Blueprint': 'text-cyan-400 border-cyan-400/30 bg-cyan-900/20',
+  'Telegram Bot': 'text-blue-400 border-blue-400/30 bg-blue-900/20'
+// --- КОМПОНЕНТ ДЛЯ ОТОБРАЖЕНИЯ ОДНОЙ ЗАПИСИ ИЗ ИСТОРИИ ---
+};
 type ChangelogEntryProps = {
+  product?: string;
   version: string;
   releaseName?: string;
   date: string;
@@ -113,10 +116,10 @@ type ChangelogEntryProps = {
   children: React.ReactNode;
   isFix?: boolean;
   isRefactor?: boolean;
-  isContent?: boolean; // Новый флаг для контента
+  isContent?: boolean;
 };
 
-const Entry = ({ version, releaseName, date, title, children, isFix = false, isRefactor = false, isContent = false }: ChangelogEntryProps) => {
+export const Entry = ({ product, version, releaseName, date, title, children, isFix = false, isRefactor = false, isContent = false }: ChangelogEntryProps) => {
   
   const getColor = () => {
     if (isContent) return { dot: 'bg-green-500 shadow-green-500', text: 'text-green-500' };
@@ -126,16 +129,25 @@ const Entry = ({ version, releaseName, date, title, children, isFix = false, isR
   };
 
   const colors = getColor();
+  const productStyle = product ? PRODUCT_COLORS[product] : '';
 
   return (
-    <li className="relative group">
-      <span className={`absolute -left-[31px] top-1.5 w-2.5 h-2.5 rounded-full ${colors.dot} shadow-[0_0_8px] group-hover:scale-125 transition-transform`}></span>
+    <li className="relative group pt-4">
+      <span className={`absolute -left-[31px] top-5 w-2.5 h-2.5 rounded-full ${colors.dot} shadow-[0_0_8px] group-hover:scale-125 transition-transform`}></span>
       
-      <p className={`font-mono text-sm font-bold ${colors.text}`}>
-        Версия {version}
-        {releaseName && ` — "${releaseName}"`}
-        <span className="text-gray-500 font-normal ml-2">- {date}</span>
-      </p>
+      {/* ▼▼▼ ИЗМЕНЕННЫЙ БЛОК С ВЕРСИЕЙ И МЕТКОЙ ▼▼▼ */}
+      <div className="flex justify-between items-center mb-1">
+        <p className={`font-mono text-sm font-bold ${colors.text}`}>
+          Версия {version}
+          {releaseName && ` — "${releaseName}"`}
+          <span className="text-gray-500 font-normal ml-2">- {date}</span>
+        </p>
+        {product && (
+          <span className={`text-xs font-mono px-2 py-0.5 rounded-full border ${productStyle}`}>
+            {product}
+          </span>
+        )}
+      </div>
       
       <div className="mt-2 p-4 bg-[#111827]/50 rounded-lg border border-gray-800/50 group-hover:border-gray-700 transition-colors">
         <p className={`text-xs font-bold mb-3 uppercase tracking-wider ${colors.text}`}>{title}</p>
@@ -146,139 +158,3 @@ const Entry = ({ version, releaseName, date, title, children, isFix = false, isR
     </li>
   );
 };
-
-// Основной компонент-рендер с полной историей
-export const ChangelogRenderer = () => (
-  <ul className="space-y-6">
-    
-     <Entry 
-      version="2.4.2" 
-      date="14.12.2025" 
-      title="PATCH: PROMPT LIBRARY UI" 
-      isFix={true}
-    >
-      <p>•  <strong>UI FIX:</strong> Улучшено форматирование текста в 'Библиотеке промптов' для предотвращения переполнения.</p>
-    </Entry>
-
-    <Entry 
-      version="2.4.1" 
-      date="14.12.2025" 
-      title="PATCH: UI FIX & CONTENT UPDATE" 
-      isFix={true}
-    >
-      <p>•  <strong>FIX:</strong> Исправлена Легенда статусов в Changelog (добавлен 'Контент').</p>
-      <p>•  <strong>CONTENT:</strong> В Библиотеку промптов добавлен 'Мастер-промпт' для документирования кода.</p>
-    </Entry>
-
-    <Entry 
-      version="2.4.0" 
-      date="14.12.2025" 
-      title="REFACTOR: TABBED CODE REFERENCE" 
-      isRefactor={true}
-    >
-      <p>• <strong>Справочник по коду</strong> переработан в панель с вкладками по проектам.</p>
-      <p>• Добавлена боковая панель с кратким резюме для каждого проекта.</p>
-    </Entry>
-
-    <Entry 
-      version="2.3.1" 
-      date="14.12.2025" 
-      title="PATCH: CODE REFERENCE STRUCTURE" 
-      isFix={true}
-    >
-      <p>• Справочник по коду структурирован по проектам.</p>
-      <p>• Добавлен мастер-промпт для автоматической генерации документации.</p>
-    </Entry>
-
-     <Entry 
-      version="2.3.0" 
-      date="14.12.2025" 
-      title="FEATURE UPDATE: ROADMAP FILTERS" 
-    >
-      <p>• В Roadmap добавлена <strong>фильтрация по тегам</strong> (#ui, #ux, #code).</p>
-      <p>• Обновлена база идей, включены все 8+ задач.</p>
-    </Entry>
-
-    <Entry 
-      version="2.2.0" 
-      date="13.12.2025" 
-      title="ROADMAP REWORK: INTERACTIVE KANBAN" 
-      isRefactor={true}
-    >
-      <p>• Раздел <strong>Roadmap</strong> полностью переработан в интерактивную канбан-доску с табами.</p>
-      <p>• Добавлена полная база идей с визуальными приоритетами и легендой.</p>
-      <p>• Улучшен дизайн карточек задач с цветовой кодировкой.</p>
-    </Entry>
-
-    <Entry 
-      version="2.1.0" 
-      date="13.12.2025" 
-      title="ROADMAP 2.0: KANBAN BOARD" 
-      isRefactor={true}
-    >
-      <p>• Раздел <strong>Roadmap</strong> переработан в интерактивную канбан-доску.</p>
-      <p>• Внедрены статусы ('В планах', 'Желательно', 'Реализовано') и визуальные приоритеты.</p>
-    </Entry>
-    
-    <Entry 
-      version="2.0.1" 
-      date="13.12.2025" 
-      title="STRATEGIC UPDATE: ROADMAP V2.0" 
-      isContent={true}
-    >
-      <p>• Сформирован и задокументирован детальный план развития до версии 2.0.</p>
-      <p>• Внедрена система приоритетов для будущих задач.</p>
-    </Entry>
-
-    <Entry 
-      version="2.0.0" date="13.12.2025" title="SYSTEM REFACTOR: COMPONENT-DRIVEN LOG" isRefactor={true}
-    >
-      <p>• Переход на компонентную систему <code>&lt;[CHANGELOG]&gt;</code> для управления версиями.</p>
-    </Entry>
-
-    <Entry version="1.9.1" date="13.12.2025" title="PATCH: MISSING DATA" isFix={true} >
-      <p>• 🐞 <strong>FIX:</strong> Добавлены теги и связи для главы 'Служебные страницы'.</p>
-    </Entry>
-
-    <Entry version="1.9.0" releaseName="Connectivity" date="13.12.2025" title="FEATURE UPDATE: NAVIGATION">
-      <p>• <strong>ВНЕДРЕНА:</strong> Система тегов и связанных разделов ("Смотри также").</p>
-    </Entry>
-
-     <Entry version="1.8.0" date="13.12.2025" title="NEW MODULE: AI & AUTOMATION">
-      <p>• <strong>ДОБАВЛЕН ТОМ 7:</strong> AI & Automation.</p>
-    </Entry>
-    
-    <Entry version="1.7.0" date="13.12.2025" title="ROADMAP & FIXES">
-        <p>• Обновлен Roadmap: добавлены планы по CRM, Платформе и n8n.</p>
-        <p>• Исправлена загрузка логотипа в Логобуке.</p>
-    </Entry>
-
-    <Entry version="1.6.0" date="13.12.2025" title="NEW SECTION & UI POLISH" isRefactor={true}>
-        <p>• <strong>ДОБАВЛЕН ТОМ 6:</strong> Roadmap (Планы).</p>
-        <p>• Добавлена глава 'Оформление документов'.</p>
-        <p>• Улучшен дизайн раздела 'Иконография'.</p>
-    </Entry>
-
-    <Entry version="1.5.1" date="12.12.2025" title="VISUAL SYSTEM UPDATE" isRefactor={true}>
-        <p>• Переработан раздел Grid & Spacing (добавлен адаптив и примеры).</p>
-    </Entry>
-
-    <Entry version="1.4.0" date="12.12.2025" title="CONTENT UPDATE: BRAND IDENTITY" isContent={true}>
-        <p>• <strong>Полностью заполнен ТОМ 1:</strong> Смыслы (Миссия, Голос, Питчи).</p>
-    </Entry>
-
-    <Entry version="1.3.0" date="12.12.2025" title="MAJOR UPDATE: BUSINESS & ARCHITECTURE">
-        <p>• <strong>ДОБАВЛЕН ТОМ 5:</strong> Business Protocols (Аудит, BPMN, 404).</p>
-    </Entry>
-
-    <Entry version="1.2.0" date="12.12.2025" title="FEATURE UPDATE: INTERACTIVITY">
-        <p>• Добавлен том System API для React-компонентов.</p>
-        <p>• Реализована система интерактивных плейсхолдеров.</p>
-    </Entry>
-
-    <Entry version="1.0.0" date="11.12.2025" title="INITIAL RELEASE" isRefactor={true}>
-        <p>Инициализация системы Blueprint. Базовая структура томов.</p>
-    </Entry>
-  </ul>
-);
-

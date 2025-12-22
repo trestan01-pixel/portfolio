@@ -6,9 +6,9 @@ import { BpmnFlowDemo } from './BpmnFlowDemo';
 import { ProjectMap } from './ProjectMap';
 import { LandingPreview } from './LandingPreview';
 import { ChaosCalculatorDemo } from './ChaosCalculatorDemo';
-import { ChangelogRenderer } from './LiveComponents';
 import { RoadmapBoard } from './RoadmapBoard';
 import { CodeReference } from './CodeReference';
+import { MasterChangelogPage } from './MasterChangelogPage';
 
 export const ContentRenderer = ({ htmlContent }: { htmlContent: string }) => {
   
@@ -22,9 +22,9 @@ export const ContentRenderer = ({ htmlContent }: { htmlContent: string }) => {
       case '<[PROJECT_MAP]>': return <ProjectMap />;
       case '<[LANDING_PREVIEW]>': return <LandingPreview />;
       case '<[CHAOS_CALCULATOR_NEW]>': return <ChaosCalculatorDemo />;
-      case '<[CHANGELOG]>': return <ChangelogRenderer />;
       case '<[ROADMAP_BOARD]>': return <RoadmapBoard />;
       case '<[CODE_REFERENCE_TABS]>': return <CodeReference />;
+      case '<[MASTER_CHANGELOG_PAGE]>': return <MasterChangelogPage />;
       default: return null;
     }
   };

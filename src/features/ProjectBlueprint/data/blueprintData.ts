@@ -17,41 +17,30 @@ export const colorPaletteData: PaletteData = {
 
 // --- ОСНОВНАЯ СТРУКТУРА КОНТЕНТА ---
 export const blueprintData: Tome[] = [
+
+   // --- ТОМ 0: ИСТОРИЯ ВЕРСИЙ ---
+  {
+    id: 'master-changelog',
+    title: 'ИСТОРИЯ ВЕРСИЙ',
+    chapters: [
+      {
+        id: 'full-history',
+        englishTitle: 'Project Changelog',
+        russianTitle: 'Полная история проекта',
+        tags: ['system', 'meta', 'history'],
+        related: [],
+        // Мы используем специальный плейсхолдер, который будет заменен на целую страницу
+        content: `<[MASTER_CHANGELOG_PAGE]>`
+      },
+    ]
+  },
+
   // --- ТОМ 1: СМЫСЛЫ (БРЕНД-ПАСПОРТ) ---
   {
     id: 'passport',
     title: 'БРЕНД-ПАСПОРТ (СМЫСЛЫ)',
     chapters: [
-      {
-        id: 'changelog',
-        englishTitle: 'Changelog & Version',
-        russianTitle: 'О паспорте и версии',
-        tags: ['system', 'meta'],
-        related: ['project-structure', 'tech-stack'],
-        content: `
-          <p class="mb-6 text-lg text-gray-400">Этот документ — "паспорт" проекта, фиксирующий его эволюцию. Здесь мы документируем все ключевые решения и нововведения.</p>
-          
-          <div class="p-4 bg-[#111827] border border-gray-800 rounded-lg flex items-center justify-between shadow-lg mb-12">
-            <span class="text-gray-400 font-medium">Текущая версия системы:</span>
-            <code class="px-3 py-1 bg-[#22d3ee]/10 border border-[#22d3ee]/20 text-[#5eead4] text-sm font-mono rounded-full shadow-[0_0_10px_rgba(34,211,238,0.1)]">v2.3.1</code>
-          </div>
-
-          <h3 class="text-white font-bold text-lg mb-4">Легенда статусов версий</h3>
-          <div class="p-4 bg-[#111827] border border-gray-800 rounded-lg mb-12 text-xs grid grid-cols-2 md:grid-cols-4 gap-4">
-              <div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-[#22d3ee] shadow-[0_0_4px_#22d3ee]"></span><span class="text-gray-300">Новая фича</span></div>
-              <div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-yellow-500 shadow-[0_0_4px_#f59e0b]"></span><span class="text-gray-300">Исправление (Fix)</span></div>
-              <div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-[#d946ef] shadow-[0_0_4px_#d946ef]"></span><span class="text-gray-300">Рефакторинг / UI</span></div>
-              <div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-green-500 shadow-[0_0_4px_#22c55e]"></span><span class="text-gray-300">Контент</span></div>
-          </div>
-
-          <h3 class="text-white font-bold text-lg mb-6">История изменений (Changelog)</h3>
-          
-          <[CHANGELOG]>
-        `
-      },
-      // ... тут выше идет changelog ...
-      
-      {
+            {
         id: 'mission-promise',
         englishTitle: 'Mission & Promise',
         russianTitle: 'Миссия и Обещание',
@@ -1287,6 +1276,66 @@ export const blueprintData: Tome[] = [
     id: 'protocols',
     title: 'BUSINESS PROTOCOLS',
     chapters: [
+       {
+        id: 'live-demos',
+        englishTitle: 'Live Demos & Links',
+        russianTitle: 'Живые Демо и Ссылки',
+        tags: ['product', 'live', 'demo'],
+        related: ['product-landing', 'system-blueprint', 'chaos-audit'],
+        content: `
+          <p class="mb-8 text-lg text-gray-400">Прямые ссылки на развернутые продукты и ключевые страницы системы.</p>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+            
+            <a href="https://trestan01-pixel.github.io/portfolio/#/" target="_blank" rel="noopener noreferrer" class="block p-6 bg-[#111827] border border-gray-800 rounded-xl hover:border-[#22d3ee] transition-all duration-300 group hover:bg-[#1f2937] hover:-translate-y-1">
+              <div class="flex items-center gap-3 mb-4 text-[#22d3ee] group-hover:scale-105 transition-transform">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line></svg>
+                <h4 class="font-bold text-white">Главная страница (Portfolio)</h4>
+              </div>
+              <p class="text-sm text-gray-400 leading-relaxed group-hover:text-gray-300">Основной лендинг-портфолио, представляющий проект.</p>
+            </a>
+            <a href="https://trestan01-pixel.github.io/portfolio/#/audit" target="_blank" rel="noopener noreferrer" class="block p-6 bg-[#111827] border border-gray-800 rounded-xl hover:border-[#d946ef] transition-all duration-300 group hover:bg-[#1f2937] hover:-translate-y-1">
+              <div class="flex items-center gap-3 mb-4 text-[#d946ef] group-hover:scale-105 transition-transform">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"></path><path d="M22 12A10 10 0 0 0 12 2v10z"></path></svg>
+                <h4 class="font-bold text-white">Интерактивный Аудит</h4>
+              </div>
+              <p class="text-sm text-gray-400 leading-relaxed group-hover:text-gray-300">Живая демонстрация виджета "Аудит Хаоса".</p>
+            </a>
+
+           
+            <a href="https://trestan01-pixel.github.io/portfolio/#/blueprint" target="_blank" rel="noopener noreferrer" class="block p-6 bg-[#111827] border border-gray-800 rounded-xl hover:border-[#3b82f6] transition-all duration-300 group hover:bg-[#1f2937] hover:-translate-y-1">
+              <div class="flex items-center gap-3 mb-4 text-[#3b82f6] group-hover:scale-105 transition-transform">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
+                <h4 class="font-bold text-white">Дизайн-система (Blueprint)</h4>
+              </div>
+              <p class="text-sm text-gray-400 leading-relaxed group-hover:text-gray-300">Основной интерфейс данной базы знаний.</p>
+            </a>
+            <a href="https://trestan01-pixel.github.io/portfolio/#/404" target="_blank" rel="noopener noreferrer" class="block p-6 bg-[#111827] border border-gray-800 rounded-xl hover:border-[#f87171] transition-all duration-300 group hover:bg-[#1f2937] hover:-translate-y-1">
+              <div class="flex items-center gap-3 mb-4 text-[#f87171] group-hover:scale-105 transition-transform">
+                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                <h4 class="font-bold text-white">Страница 404</h4>
+              </div>
+              <p class="text-sm text-gray-400 leading-relaxed group-hover:text-gray-300">Пример оформления служебной страницы с ошибкой.</p>
+            </a>
+
+            <a href="https://t.me/RuslanPortfolioBot" target="_blank" rel="noopener noreferrer" class="block p-6 bg-[#111827] border border-gray-800 rounded-xl hover:border-[#3b82f6] transition-all duration-300 group hover:bg-[#1f2937] hover:-translate-y-1">
+              <div class="flex items-center gap-3 mb-4 text-[#3b82f6] group-hover:scale-105 transition-transform">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                <h4 class="font-bold text-white">Telegram Бот</h4>
+              </div>
+              <p class="text-sm text-gray-400 leading-relaxed group-hover:text-gray-300">Интеллектуальный ассистент с автоворонкой и системой записи.</p>
+            </a>
+
+            
+            <a href="https://trestan01-pixel.github.io/portfolio/#/system" target="_blank" rel="noopener noreferrer" class="block p-6 bg-[#111827] border border-gray-800 rounded-xl hover:border-[#3b82f6] transition-all duration-300 group hover:bg-[#1f2937] hover:-translate-y-1">
+                <div class="flex items-center gap-3 mb-4 text-[#9333ea] group-hover:scale-105 transition-transform">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"></polygon><line x1="8" y1="2" x2="8" y2="18"></line><line x1="16" y1="6" x2="16" y2="22"></line></svg>
+                    <h4 class="font-bold text-white">Карта проекта (System)</h4>
+                </div>
+                <p class="text-sm text-gray-400 leading-relaxed group-hover:text-gray-300">Визуальное представление архитектуры и файловой структуры.</p>
+            </a>
+        `
+      },
       {
         id: 'chaos-audit',
         englishTitle: 'Protocol: Chaos Audit',
@@ -1299,6 +1348,13 @@ export const blueprintData: Tome[] = [
           
           <!-- ЖИВОЙ КОМПОНЕНТ -->
           <[CHAOS_AUDIT_DEMO]>
+          <a href="https://trestan01-pixel.github.io/portfolio/#/audit" target="_blank" rel="noopener noreferrer" class="block p-6 bg-[#111827] border border-gray-800 rounded-xl hover:border-[#d946ef] transition-all duration-300 group hover:bg-[#1f2937] hover:-translate-y-1">
+              <div class="flex items-center gap-3 mb-4 text-[#d946ef] group-hover:scale-105 transition-transform">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"></path><path d="M22 12A10 10 0 0 0 12 2v10z"></path></svg>
+                <h4 class="font-bold text-white">Интерактивный Аудит</h4>
+              </div>
+              <p class="text-sm text-gray-400 leading-relaxed group-hover:text-gray-300">Живая демонстрация виджета "Аудит Хаоса".</p>
+            </a>
         `
       },
       {
@@ -1307,27 +1363,36 @@ export const blueprintData: Tome[] = [
         russianTitle: 'Служебные страницы',
         tags: ['ui', 'ux', 'system'],
         related: ['logobook', 'colors-typography'],
-                content: `
+        content: `
           <p class="mb-6 text-lg text-gray-400">Дизайн страницы ошибки 404. Стиль: Glitch / Terminal.</p>
-          
-          <div class="w-full aspect-video rounded-xl overflow-hidden border border-gray-800 relative bg-[#05080f] flex items-center justify-center flex-col">
-            
-            <!-- Имитация 404 -->
-            <h1 class="text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-[#22d3ee] to-[#9333ea] mb-4">404</h1>
-            
-            <div class="font-mono text-xs text-gray-500 w-64 p-4 border border-gray-800 rounded bg-[#0B0F19] mb-6">
-              <div class="text-red-500 mb-2">>_ system_log.txt</div>
-              <div class="text-gray-600">> Initiating search protocol...</div>
-              <div class="text-red-400">> Error: Path segment not found.</div>
-              <div class="text-[#22d3ee] animate-pulse">> Waiting for user input_</div>
-            </div>
-            
 
-            <button class="px-6 py-2 bg-white text-black font-bold rounded-full text-sm hover:scale-105 transition-transform">
-              Вернуться на главную
-            </button>
+          
+          <div class="space-y-8">
+
             
+            <div class="w-full aspect-video rounded-xl overflow-hidden border border-gray-800 relative bg-[#05080f] flex items-center justify-center flex-col">
+              <h1 class="text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-[#22d3ee] to-[#9333ea] mb-4">404</h1>
+              <div class="font-mono text-xs text-gray-500 w-64 p-4 border border-gray-800 rounded bg-[#0B0F19] mb-6">
+                <div class="text-red-500 mb-2">>_ system_log.txt</div>
+                <div class="text-gray-600">> Initiating search protocol...</div>
+                <div class="text-red-400">> Error: Path segment not found.</div>
+                <div class="text-[#22d3ee] animate-pulse">> Waiting for user input_</div>
+              </div>
+              <button class="px-6 py-2 bg-white text-black font-bold rounded-full text-sm hover:scale-105 transition-transform">
+                Вернуться на главную
+              </button>
+            </div>
+
+              <a href="https://trestan01-pixel.github.io/portfolio/#/404" target="_blank" rel="noopener noreferrer" class="block p-6 bg-[#111827] border border-gray-800 rounded-xl hover:border-[#f87171] transition-all duration-300 group hover:bg-[#1f2937] hover:-translate-y-1">
+              <div class="flex items-center gap-3 mb-4 text-[#f87171] group-hover:scale-105 transition-transform">
+                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                <h4 class="font-bold text-white">Страница 404</h4>
+              </div>
+              <p class="text-sm text-gray-400 leading-relaxed group-hover:text-gray-300">Пример оформления служебной страницы с ошибкой.</p>
+            </a>
+
           </div>
+          
         `
       },
       {
@@ -1387,6 +1452,16 @@ export const blueprintData: Tome[] = [
                 </div>
              </div>
           </div>
+
+          <button class=""></button>
+
+          <a href="https://trestan01-pixel.github.io/portfolio/#/system" target="_blank" rel="noopener noreferrer" class="block p-6 bg-[#111827] border border-gray-800 rounded-xl hover:border-[#9333ea] transition-all duration-300 group hover:bg-[#1f2937] hover:-translate-y-1 md:col-span-2">
+                <div class="flex items-center gap-3 mb-4 text-[#9333ea] group-hover:scale-105 transition-transform">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"></polygon><line x1="8" y1="2" x2="8" y2="18"></line><line x1="16" y1="6" x2="16" y2="22"></line></svg>
+                    <h4 class="font-bold text-white">Карта проекта (System)</h4>
+                </div>
+                <p class="text-sm text-gray-400 leading-relaxed group-hover:text-gray-300">Визуальное представление архитектуры и файловой структуры.</p>
+            </a>
         `
       },
       {
@@ -1426,6 +1501,16 @@ export const blueprintData: Tome[] = [
                 <p class="text-xs text-gray-400">Система разбита на молекулы (цвета, шрифты) и организмы (сложные виджеты), что позволяет легко собирать новые продукты.</p>
              </div>
           </div>
+
+          <button class=""></button>
+
+          <a href="https://trestan01-pixel.github.io/portfolio/#/blueprint"  target="_blank" rel="noopener noreferrer" class="block p-6 bg-[#111827] border border-gray-800 rounded-xl hover:border-[#3b82f6] transition-all duration-300 group hover:bg-[#1f2937] hover:-translate-y-1">
+              <div class="flex items-center gap-3 mb-4 text-[#3b82f6] group-hover:scale-105 transition-transform">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
+                <h4 class="font-bold text-white">Дизайн-система (Blueprint)</h4>
+              </div>
+              <p class="text-sm text-gray-400 leading-relaxed group-hover:text-gray-300">Основной интерфейс данной базы знаний.</p>
+            </a>
         `
       },
       {
@@ -1433,7 +1518,7 @@ export const blueprintData: Tome[] = [
         englishTitle: 'Product: Landing Page',
         russianTitle: 'Продукт: Лендинг',
         tags: ['product', 'strategy'],
-        related: ['system-blueprint', 'chaos-calc-widget'],
+        related: ['system-blueprint', 'chaos-calc-widget', 'telegram-bot-link', 'product-landing'],
         content: `
           <p class="mb-4 text-lg text-gray-400">Основная точка входа для клиентов. Высококонверсионная посадочная страница.</p>
           <div class="flex items-center gap-2 mb-8">
@@ -1480,6 +1565,18 @@ export const blueprintData: Tome[] = [
           <p class="mb-4 text-sm text-gray-400">Полностью функциональный виджет, встроенный в лендинг. Попробуйте изменить параметры.</p>
           
           <[CHAOS_CALCULATOR_NEW]>
+
+            <button class=""></button>
+
+           <a href="https://trestan01-pixel.github.io/portfolio/#/" target="_blank" rel="noopener noreferrer" class="block p-6 bg-[#111827] border border-gray-800 rounded-xl hover:border-[#22d3ee] transition-all duration-300 group hover:bg-[#1f2937] hover:-translate-y-1">
+              <div class="flex items-center gap-3 mb-4 text-[#22d3ee] group-hover:scale-105 transition-transform">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line></svg>
+                <h4 class="font-bold text-white">Главная страница (Portfolio)</h4>
+              </div>
+              <p class="text-sm text-gray-400 leading-relaxed group-hover:text-gray-300">Основной лендинг-портфолио, представляющий проект.</p>
+            </a>
+
+            
         `
       },
     ]
@@ -1579,4 +1676,174 @@ export const blueprintData: Tome[] = [
       },
     ]
   },
-];
+
+   // --- ТОМ 8: ПРОДУКТОВЫЙ ПОРТФЕЛЬ ---
+   {
+       id: 'portfolio',
+    title: 'ПРОДУКТОВЫЙ ПОРТФЕЛЬ',
+    chapters: [
+      {
+        id: 'product-chaos-audit',
+        englishTitle: 'Product Passport: Chaos Audit',
+        russianTitle: 'Паспорт Продукта: Аудит Хаоса',
+        tags: ['product', 'widget', 'strategy'],
+        related: ['chaos-audit', 'chaos-calc-widget'],
+        content: `
+            <p class="mb-8 text-lg text-gray-400">Полная документация по виджету "Аудит Хаоса".</p>
+          
+          <h3 class="text-white font-bold text-lg mb-4">1. Назначение</h3>
+          <p class="text-sm text-gray-400 mb-6">Интерактивный чек-лист для быстрой диагностики проблем в бизнес-процессах клиента. Основная цель — вовлечение и демонстрация экспертизы через действие, а не слова. Является инструментом лидогенерации.</p>
+          
+          <h3 class="text-white font-bold text-lg mb-4">2. Расположение в коде</h3>
+          <ul class="text-sm text-gray-400 list-disc list-inside space-y-2 mb-6">
+            <li>Основной компонент: <code>/features/ProjectBlueprint/components/ChaosAuditDemo.tsx</code></li>
+            <li>Данные (вопросы): Внутри самого компонента.</li>
+          </ul>
+
+          <h3 class="text-white font-bold text-lg mb-4">3. Ключевые функции</h3>
+          <div class="p-4 bg-[#111827] border border-gray-800 rounded-xl text-sm font-mono">
+              <p><span class="text-[#d946ef]">toggleItem</span>(<span class="text-gray-500">id</span>): Добавляет/удаляет ID вопроса в массив 'selected'.</p>
+              <p class="mt-2"><span class="text-[#d946ef]">getVerdict</span>(<span class="text-gray-500">score</span>): На основе количества выбранных элементов ('score') возвращает объект с вердиктом.</p>
+          </div>
+        `
+      },
+      // Сюда можно будет добавлять паспорта для "Лендинга", "BPMN-редактора" и т.д.
+    ]
+  },
+      // Сюда можно будет добавлять паспорта для "Лендинга", "BPMN-редактора" и т.д.
+        // --- ТОМ 9: КЛИЕНТСКИЕ ПРОТОКОЛЫ ---
+  {
+    id: 'client-protocols',
+    title: 'КЛИЕНТСКИЕ ПРОТОКОЛЫ',
+    chapters: [
+      {
+        id: 'customer-journey',
+        englishTitle: 'Customer Journey',
+        russianTitle: 'Путь клиента',
+        tags: ['strategy', 'client', 'process'],
+        related: ['client-problems', 'work-regulations'],
+        content: `
+          <p class="mb-8 text-lg text-gray-400">Стандартный маршрут клиента от первого контакта до получения системного результата. Каждый этап — это фильтр и точка контроля.</p>
+          
+          <div class="border border-gray-800 rounded-xl p-4 space-y-2">
+            <!-- Этап 1 -->
+            <div class="p-4 bg-[#111827] border-l-4 border-[#3b82f6] rounded-r-lg hover:bg-[#1f2937] transition-colors">
+                <span class="font-mono text-xs text-[#3b82f6]">[ 01. ДИАГНОСТИКА ]</span>
+                <h4 class="text-white font-bold mt-1">Первичный аудит и квалификация</h4>
+                <p class="text-xs text-gray-500 mt-1">Клиент проходит "Аудит хаоса", мы определяем масштаб проблемы и понимаем, можем ли помочь.</p>
+            </div>
+            <!-- Этап 2 -->
+            <div class="p-4 bg-[#111827] border-l-4 border-gray-700 rounded-r-lg hover:bg-[#1f2937] transition-colors">
+                <span class="font-mono text-xs text-gray-500">[ 02. СТРАТЕГИЯ ]</span>
+                <h4 class="text-white font-bold mt-1">Разработка дорожной карты</h4>
+                <p class="text-xs text-gray-500 mt-1">Составляем пошаговый план внедрения системы. Фиксируем цели, сроки и KPI.</p>
+            </div>
+            <!-- Этап 3 -->
+            <div class="p-4 bg-[#111827] border-l-4 border-gray-700 rounded-r-lg hover:bg-[#1f2937] transition-colors">
+                <span class="font-mono text-xs text-gray-500">[ 03. ВНЕДРЕНИЕ ]</span>
+                <h4 class="text-white font-bold mt-1">Оцифровка и автоматизация</h4>
+                <p class="text-xs text-gray-500 mt-1">Настраиваем CRM, дашборды, пишем регламенты. Превращаем хаос в управляемый механизм.</p>
+            </div>
+            <!-- Этап 4 -->
+            <div class="p-4 bg-[#111827] border-l-4 border-[#22d3ee] rounded-r-lg hover:bg-[#1f2937] transition-colors">
+                <span class="font-mono text-xs text-[#22d3ee]">[ 04. РЕЗУЛЬТАТ ]</span>
+                <h4 class="text-white font-bold mt-1">Передача управления</h4>
+                <p class="text-xs text-gray-500 mt-1">Владелец выходит из операционки. Бизнес работает как система, генерируя прогнозируемую прибыль.</p>
+            </div>
+          </div>
+        `
+      },
+      {
+        id: 'client-problems',
+        englishTitle: 'Common Problems',
+        russianTitle: 'Типовые проблемы',
+        tags: ['strategy', 'diagnostics'],
+        related: ['customer-journey'],
+        content: `
+          <p class="mb-8 text-lg text-gray-400">Основные "болевые точки" клиентов, с которыми мы работаем, и системные решения, которые мы предлагаем.</p>
+          
+          <div class="space-y-4">
+            <div class="p-5 rounded-xl border border-gray-800 bg-gradient-to-r from-[#450a0a]/10 to-transparent">
+                <h4 class="text-red-400 font-bold mb-1">Проблема: "Все завязано на мне"</h4>
+                <p class="text-sm text-gray-400">Собственник — главный "пожарный", без него все процессы останавливаются. Отпуск невозможен.</p>
+            </div>
+            <div class="p-5 rounded-xl border border-[#059669]/30 bg-gradient-to-r from-[#064e3b]/10 to-transparent">
+                <h4 class="text-[#10b981] font-bold mb-1">Решение: Делегирование через регламенты</h4>
+                <p class="text-sm text-gray-400">Прописываем четкие инструкции и KPI для каждого сотрудника. Внедряем систему контроля, которая не требует участия владельца.</p>
+            </div>
+             <div class="p-5 rounded-xl border border-gray-800 bg-gradient-to-r from-[#450a0a]/10 to-transparent">
+                <h4 class="text-red-400 font-bold mb-1">Проблема: "Не понимаю, что происходит в компании"</h4>
+                <p class="text-sm text-gray-400">Отсутствуют ключевые метрики. Решения принимаются на основе интуиции, а не данных.</p>
+            </div>
+            <div class="p-5 rounded-xl border border-[#059669]/30 bg-gradient-to-r from-[#064e3b]/10 to-transparent">
+                <h4 class="text-[#10b981] font-bold mb-1">Решение: Оцифровка и дашборды</h4>
+                <p class="text-sm text-gray-400">Внедряем панель управления бизнесом, где в реальном времени видны все ключевые показатели: от выручки до эффективности каждого сотрудника.</p>
+            </div>
+          </div>
+        `
+      },
+      {
+        id: 'work-regulations',
+        englishTitle: 'Regulations & Rules',
+        russianTitle: 'Регламенты и правила',
+        tags: ['process', 'docs'],
+        related: ['client-motivation'],
+        content: `
+          <p class="mb-8 text-lg text-gray-400">Фундаментальные принципы нашей совместной работы. Мы не консультанты, мы — часть вашей команды на время проекта.</p>
+          <ul class="space-y-4">
+            <li class="flex gap-4 p-5 rounded-xl border border-gray-800 bg-[#0B0F19] hover:border-[#22d3ee] transition-colors">
+                <div class="shrink-0 text-[#22d3ee]"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg></div>
+                <div>
+                    <h4 class="text-white font-bold">Полная прозрачность</h4>
+                    <p class="text-sm text-gray-400 mt-1">Клиент имеет доступ ко всем рабочим материалам и задачам 24/7. Никаких "черных ящиков".</p>
+                </div>
+            </li>
+            <li class="flex gap-4 p-5 rounded-xl border border-gray-800 bg-[#0B0F19] hover:border-[#22d3ee] transition-colors">
+                <div class="shrink-0 text-[#22d3ee]"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg></div>
+                <div>
+                    <h4 class="text-white font-bold">Соблюдение сроков</h4>
+                    <p class="text-sm text-gray-400 mt-1">Мы работаем по спринтам с четко зафиксированными дедлайнами. Просрочка — это ЧП.</p>
+                </div>
+            </li>
+             <li class="flex gap-4 p-5 rounded-xl border border-gray-800 bg-[#0B0F19] hover:border-[#22d3ee] transition-colors">
+                <div class="shrink-0 text-[#22d3ee]"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"></path></svg></div>
+                <div>
+                    <h4 class="text-white font-bold">Говорим "Нет"</h4>
+                    <p class="text-sm text-gray-400 mt-1">Мы не беремся за задачи, которые не ведут к главной цели проекта. Наш фокус — на системном результате, а не на выполнении всех "хотелок".</p>
+                </div>
+            </li>
+          </ul>
+        `
+      },
+      {
+        id: 'client-motivation',
+        englishTitle: 'Motivation System',
+        russianTitle: 'Система мотивации',
+        tags: ['strategy', 'hr'],
+        related: ['work-regulations'],
+        content: `
+          <p class="mb-8 text-lg text-gray-400">Принципы, которые мы закладываем в системы мотивации для команд наших клиентов.</p>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="p-6 bg-[#111827] border border-gray-800 rounded-xl hover:border-[#d946ef] transition-colors group">
+                <h4 class="text-[#d946ef] font-bold mb-2">1. Связь с результатом</h4>
+                <p class="text-xs text-gray-400 group-hover:text-gray-300">Бонусная часть зарплаты должна быть напрямую привязана к конкретным, измеримым KPI (продажи, маржа, LTV), а не к абстрактным "стараниям".</p>
+            </div>
+            <div class="p-6 bg-[#111827] border border-gray-800 rounded-xl hover:border-gray-600 transition-colors group">
+                <h4 class="text-white font-bold mb-2">2. Прозрачность расчета</h4>
+                <p class="text-xs text-gray-400 group-hover:text-gray-300">Каждый сотрудник должен иметь возможность в любой момент посмотреть свои текущие показатели и самостоятельно рассчитать свой будущий бонус.</p>
+            </div>
+            <div class="p-6 bg-[#111827] border border-gray-800 rounded-xl hover:border-gray-600 transition-colors group">
+                <h4 class="text-white font-bold mb-2">3. Отсутствие "потолка"</h4>
+                <p class="text-xs text-gray-400 group-hover:text-gray-300">Если сотрудник перевыполняет план в 3 раза, он должен получить в 3 раза больше. Ограничения демотивируют лучших.</p>
+            </div>
+            <div class="p-6 bg-[#111827] border border-gray-800 rounded-xl hover:border-[#22d3ee] transition-colors group">
+                <h4 class="text-[#22d3ee] font-bold mb-2">4. Не только деньги</h4>
+                <p class="text-xs text-gray-400 group-hover:text-gray-300">Внедряем системы грейдов, публичного признания и возможностей для роста. Сильные специалисты ценят статус и развитие не меньше, чем деньги.</p>
+            </div>
+          </div>
+        `
+      }
+    ]
+  },
+]
+    

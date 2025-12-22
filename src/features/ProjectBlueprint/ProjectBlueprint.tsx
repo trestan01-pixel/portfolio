@@ -147,7 +147,7 @@ const ProjectBlueprint: React.FC = () => {
         </nav>
         
         <div className="p-4 border-t border-gray-800 bg-[#05080f]"><div className="flex items-center gap-2 text-[10px] font-mono text-gray-600"><span className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse">
-        </span>SYSTEM ONLINE :: V.2.4.0</div></div>
+        </span>SYSTEM ONLINE :: V.2.5.3</div></div>
       </aside>
 
       {/* CONTENT */}

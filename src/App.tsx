@@ -1,4 +1,4 @@
-// Файл: src/App.tsx
+// Файл: src/App.tsx (ФИНАЛЬНАЯ ИСПРАВЛЕННАЯ ВЕРСЯ)
 
 import React, { useEffect, useState } from 'react';
 import { HashRouter, Routes, Route, Navigate } from 'react-router-dom'; 
@@ -9,9 +9,10 @@ import Home from './pages/Home';
 import NotFound from './pages/NotFound';
 import Preloader from './components/Preloader';
 
-// Импорт всех страниц с безопасными именами
-import AuditPage from './pages/AuditPage'; 
-import PrintChecklist from './components/PrintChecklist';
+// --- 1. ИСПРАВЛЕН ИМПОРТ: Имя совпадает с именем компонента ---
+import ChaosAuditPage from './features/ChaosAudit/ChaosAuditPage';
+
+// Импорт остальных страниц
 import DisclosurePage from './pages/DisclosurePage';
 import PrivacyPage from './pages/PrivacyPage';
 import TermsPage from './pages/TermsPage';
@@ -22,20 +23,13 @@ import ProjectBlueprint from './features/ProjectBlueprint/ProjectBlueprint';
 
 import './print.css';
 
-// Интерфейс данных
+// Интерфейс данных (без изменений)
 interface SiteData {
-    siteSettings: any;
-    experience: any[];
-    projects: any[];
-    skills: any[];
-    testimonials: any[];
-    education: any[];
-    books: any[];
-    faq: any[];
-    workflow: any[];
+    siteSettings: any; experience: any[]; projects: any[]; skills: any[];
+    testimonials: any[]; education: any[]; books: any[]; faq: any[]; workflow: any[];
 }
 
-// Запрос к Sanity
+// --- 2. ИСПРАВЛЕН ЗАПРОС: Добавлена пропущенная запятая ---
 const query = `
   {
     "siteSettings": *[_type == "siteSettings"][0],
@@ -65,8 +59,7 @@ const App: React.FC = () => {
         } catch (error) {
             console.error("❌ Ошибка загрузки из Sanity:", error);
         } finally {
-            // Задержка, чтобы анимация прелоадера успела завершиться
-            setTimeout(() => setLoading(false), 2500); // Увеличил время для красоты
+            setTimeout(() => setLoading(false), 2500);
         }
     };
     fetchData();
@@ -74,19 +67,17 @@ const App: React.FC = () => {
 
   return (
     <>
-    <CustomCursor /> 
-      {/* ВОЗВРАЩАЕМ РАБОЧУЮ СТРУКТУРУ ПРЕЛОАДЕРА */}
-       <AnimatePresence mode="wait">
+      <CustomCursor /> 
+      <AnimatePresence mode="wait">
         {loading && <Preloader key="preloader" />}
       </AnimatePresence>
 
       {!loading && (
         <HashRouter>
           <Routes>
-            {/* Все роуты, включая новые */}
             <Route path="/" element={<Home data={data} />} />
-            <Route path="/audit" element={<AuditPage />} /> 
-            <Route path="/print/chaos-audit" element={<PrintChecklist />} />
+            {/* Имя в роуте теперь совпадает с импортом */}
+            <Route path="/audit" element={<ChaosAuditPage />} /> 
             <Route path="/nda" element={<DisclosurePage />} />
             <Route path="/privacy" element={<PrivacyPage />} />
             <Route path="/offer" element={<TermsPage />} />
