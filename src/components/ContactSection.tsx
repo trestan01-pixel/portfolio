@@ -140,36 +140,45 @@ const ContactSection = () => {
                     <h3 className="text-xl font-bold text-white mb-6">Заявка на стратегию</h3>
                     <form onSubmit={handleSubmit} className="space-y-5 relative z-10">
                       <div>
-                        <label className="text-sm text-gray-400 mb-2 block">Ваше имя</label>
-                        <input 
-                          type="text" 
+                        <label htmlFor="contact-name" className="text-sm text-gray-400 mb-2 block">
+                          Ваше имя <span className="text-red-500">*</span>
+                        </label>
+                        <input
+                          id="contact-name"
+                          type="text"
                           required
-                          placeholder="Иван Иванов" 
-                          className="w-full bg-black/50 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all placeholder:text-gray-600" 
-                          value={formState.name} 
-                          onChange={(e) => setFormState({...formState, name: e.target.value})} 
+                          placeholder="Иван Иванов"
+                          className="w-full bg-black/50 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all placeholder:text-gray-600"
+                          value={formState.name}
+                          onChange={(e) => setFormState({ ...formState, name: e.target.value })}
                         />
                       </div>
                       <div>
-                        <label className="text-sm text-gray-400 mb-2 block">Контакты (Телефон или Telegram)</label>
-                        <input 
-                          type="text" 
+                        <label htmlFor="contact-contact" className="text-sm text-gray-400 mb-2 block">
+                          Контакты (Телефон или Telegram) <span className="text-red-500">*</span>
+                        </label>
+                        <input
+                          id="contact-contact"
+                          type="text"
                           required
-                          placeholder="@username / +7..." 
-                          className="w-full bg-black/50 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all placeholder:text-gray-600" 
-                          value={formState.contact} 
-                          onChange={(e) => setFormState({...formState, contact: e.target.value})} 
+                          placeholder="@username / +7..."
+                          className="w-full bg-black/50 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all placeholder:text-gray-600"
+                          value={formState.contact}
+                          onChange={(e) => setFormState({ ...formState, contact: e.target.value })}
                         />
                       </div>
                       <div>
-                        <label className="text-sm text-gray-400 mb-2 block">Какую задачу нужно решить?</label>
-                        <textarea 
-                          rows={4} 
+                        <label htmlFor="contact-message" className="text-sm text-gray-400 mb-2 block">
+                          Какую задачу нужно решить? <span className="text-red-500">*</span>
+                        </label>
+                        <textarea
+                          id="contact-message"
+                          rows={4}
                           required
-                          placeholder="Например: хочу выйти из операционки, масштабировать продажи или внедрить CRM..." 
-                          className="w-full bg-black/50 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all resize-none placeholder:text-gray-600" 
-                          value={formState.message} 
-                          onChange={(e) => setFormState({...formState, message: e.target.value})} 
+                          placeholder="Например: хочу выйти из операционки, масштабировать продажи или внедрить CRM..."
+                          className="w-full bg-black/50 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all resize-none placeholder:text-gray-600"
+                          value={formState.message}
+                          onChange={(e) => setFormState({ ...formState, message: e.target.value })}
                         />
                       </div>
                       <div className="flex items-start space-x-3 pt-2">
