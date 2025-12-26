@@ -160,6 +160,7 @@ const Home: React.FC<HomeProps> = ({ data }) => {
           pointerEvents: showScrollTop ? 'auto' : 'none'
         }}
         onClick={scrollToTop}
+        aria-label="Scroll to top"
         className="fixed bottom-8 right-8 z-40 p-3 bg-cyan-500 hover:bg-cyan-400 text-white rounded-full shadow-lg shadow-cyan-500/30 transition-colors"
       >
         <ArrowUp size={24} />
