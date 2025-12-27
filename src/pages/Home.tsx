@@ -161,6 +161,7 @@ const Home: React.FC<HomeProps> = ({ data }) => {
         }}
         onClick={scrollToTop}
         className="fixed bottom-8 right-8 z-40 p-3 bg-cyan-500 hover:bg-cyan-400 text-white rounded-full shadow-lg shadow-cyan-500/30 transition-colors"
+        aria-label="Вернуться наверх"
       >
         <ArrowUp size={24} />
       </motion.button>
