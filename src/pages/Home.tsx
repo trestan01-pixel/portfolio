@@ -153,6 +153,7 @@ const Home: React.FC<HomeProps> = ({ data }) => {
 
       {/* Кнопка "Наверх" */}
       <motion.button
+        aria-label="Scroll to top"
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ 
           opacity: showScrollTop ? 1 : 0, 
@@ -160,7 +161,7 @@ const Home: React.FC<HomeProps> = ({ data }) => {
           pointerEvents: showScrollTop ? 'auto' : 'none'
         }}
         onClick={scrollToTop}
-        className="fixed bottom-8 right-8 z-40 p-3 bg-cyan-500 hover:bg-cyan-400 text-white rounded-full shadow-lg shadow-cyan-500/30 transition-colors"
+        className="fixed bottom-8 right-8 z-40 p-3 bg-cyan-500 hover:bg-cyan-400 text-white rounded-full shadow-lg shadow-cyan-500/30 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-cyan-500 focus-visible:ring-offset-[#0B0F19]"
       >
         <ArrowUp size={24} />
       </motion.button>

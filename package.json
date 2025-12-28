@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@google/generative-ai": "^0.24.1",
+    "@playwright/test": "^1.57.0",
     "@portabletext/react": "^5.0.0",
     "@react-three/fiber": "^8.16.1",
     "@sanity/client": "^7.13.0",
@@ -24,6 +25,7 @@
     "html2canvas": "^1.4.1",
     "jspdf": "^3.0.4",
     "lucide-react": "^0.395.0",
+    "playwright": "^1.57.0",
     "react": "^18.2.0",
     "react-awesome-reveal": "^4.3.1",
     "react-dom": "^18.2.0",
