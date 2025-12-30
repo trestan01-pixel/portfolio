@@ -142,7 +142,13 @@ const Header: React.FC = () => {
              </MagneticButton>
 
              {/* Mobile Burger */}
-             <button className="xl:hidden p-2 bg-white/10 rounded-full text-white hover:bg-white/20 transition-colors ml-1" onClick={() => setIsOpen(!isOpen)}>
+             <button
+                className="xl:hidden p-2 bg-white/10 rounded-full text-white hover:bg-white/20 transition-colors ml-1"
+                onClick={() => setIsOpen(!isOpen)}
+                aria-label={isOpen ? 'Закрыть меню' : 'Открыть меню'}
+                aria-expanded={isOpen}
+                aria-controls="mobile-menu"
+              >
                 {isOpen ? <X size={20} /> : <Menu size={20} />}
              </button>
         </div>
@@ -152,6 +158,7 @@ const Header: React.FC = () => {
       <AnimatePresence>
         {isOpen && (
           <motion.div 
+            id="mobile-menu"
             initial={{ opacity: 0, y: -20, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -20, scale: 0.95 }}
