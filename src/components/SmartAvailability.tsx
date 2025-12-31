@@ -128,6 +128,9 @@ const SmartAvailability: React.FC<SmartAvailabilityProps> = ({
       initial={{ opacity: 0, scale: 0.95 }}
       animate={{ opacity: 1, scale: 1 }}
       key={status.dateLabel}
+      role="status"
+      aria-live="polite"
+      aria-atomic="true"
       className={`
         flex items-center gap-3 px-3 py-1.5 md:px-4 md:py-2 rounded-full 
         backdrop-blur-md border shadow-lg select-none cursor-default
