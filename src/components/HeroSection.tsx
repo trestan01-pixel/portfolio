@@ -183,24 +183,26 @@ const HeroSection: React.FC<HeroProps> = ({ data }) => {
                 className="flex flex-col sm:flex-row items-center justify-center gap-5"
             >
                 {/* Основная кнопка - ВЕДЕТ НА CONTACT */}
-                <MagneticButton onClick={() => scrollTo('contact')}>
-                    <div className="group relative px-8 py-4 bg-gradient-to-r from-blue-600 to-cyan-600 text-white rounded-full font-bold text-lg overflow-hidden transition-all hover:scale-105 shadow-[0_0_30px_rgba(6,182,212,0.4)] cursor-pointer w-full sm:w-auto">
-                        <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
-                        <span className="relative z-10 flex items-center justify-center gap-2">
-                           <ClipboardCheck size={20} />
-                           Получить план устранения хаоса
-                        </span>
-                    </div>
+                <MagneticButton
+                  onClick={() => scrollTo('contact')}
+                  className="group relative px-8 py-4 bg-gradient-to-r from-blue-600 to-cyan-600 text-white rounded-full font-bold text-lg overflow-hidden transition-all hover:scale-105 shadow-[0_0_30px_rgba(6,182,212,0.4)] cursor-pointer w-full sm:w-auto"
+                  aria-label="Получить план устранения хаоса и перейти к секции контактов"
+                >
+                    <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
+                    <span className="relative z-10 flex items-center justify-center gap-2">
+                        <ClipboardCheck size={20} />
+                        Получить план устранения хаоса
+                    </span>
                 </MagneticButton>
 
                 {/* Вторичная кнопка - ВЕДЕТ НА CASES */}
-                <MagneticButton onClick={() => scrollTo('cases')}>
-                    <button 
-                        className="px-8 py-4 bg-white/5 border border-white/10 text-white rounded-full font-bold text-lg hover:bg-white/10 hover:border-white/30 transition-all flex items-center justify-center gap-2 w-full sm:w-auto"
-                    >
-                        <FileBarChart size={20} className="text-gray-400 group-hover:text-white" />
-                        Смотреть кейсы
-                    </button>
+                <MagneticButton
+                  onClick={() => scrollTo('cases')}
+                  className="px-8 py-4 bg-white/5 border border-white/10 text-white rounded-full font-bold text-lg hover:bg-white/10 hover:border-white/30 transition-all flex items-center justify-center gap-2 w-full sm:w-auto"
+                  aria-label="Смотреть кейсы и перейти к секции кейсов"
+                >
+                    <FileBarChart size={20} className="text-gray-400 group-hover:text-white" />
+                    Смотреть кейсы
                 </MagneticButton>
             </motion.div>
         </div>
