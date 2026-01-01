@@ -105,15 +105,17 @@ const ServicesSection: React.FC = () => {
                 ))}
               </div>
 
-              <MagneticButton onClick={scrollToContact} className="w-full">
-                <div className={`w-full py-3 rounded-xl font-bold text-sm transition-all duration-300 border text-center
+              <MagneticButton
+                onClick={scrollToContact}
+                className={`w-full py-3 rounded-xl font-bold text-sm transition-all duration-300 border text-center
                   ${service.recommended
                     ? 'bg-white text-black hover:bg-gray-200 border-transparent'
                     : 'bg-transparent text-white border-gray-700 hover:bg-white/5 hover:border-white/20'
                   }
-                `}>
-                  Обсудить задачу
-                </div>
+                `}
+                aria-label={`Обсудить задачу для услуги ${service.title}`}
+              >
+                Обсудить задачу
               </MagneticButton>
             </motion.div>
           ))}

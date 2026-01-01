@@ -117,10 +117,11 @@ const Header: React.FC = () => {
              </div>
 
              {/* CTA Button */}
-             <MagneticButton 
-               onClick={() => scrollTo('#contact')}
-               className="relative overflow-hidden bg-cyan-500 hover:bg-cyan-400 text-white px-5 py-2 rounded-full transition-all text-sm font-bold shadow-[0_0_15px_rgba(6,182,212,0.3)] hover:shadow-[0_0_25px_rgba(6,182,212,0.5)] transform hover:-translate-y-0.5 active:scale-95 min-w-[140px] flex justify-center items-center group"
-             >
+             <MagneticButton
+                onClick={() => scrollTo('#contact')}
+                className="relative overflow-hidden bg-cyan-500 hover:bg-cyan-400 text-white px-5 py-2 rounded-full transition-all text-sm font-bold shadow-[0_0_15px_rgba(6,182,212,0.3)] hover:shadow-[0_0_25px_rgba(6,182,212,0.5)] transform hover:-translate-y-0.5 active:scale-95 min-w-[140px] flex justify-center items-center group"
+                aria-label="Обсудить проект и перейти к секции контактов"
+              >
                 <div className="absolute inset-0 flex items-center justify-center">
                   <AnimatePresence mode='wait'>
                     <motion.span
