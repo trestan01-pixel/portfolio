@@ -125,6 +125,8 @@ const SmartAvailability: React.FC<SmartAvailabilityProps> = ({
 
   return (
     <motion.div
+      role="status"
+      aria-live="polite"
       initial={{ opacity: 0, scale: 0.95 }}
       animate={{ opacity: 1, scale: 1 }}
       key={status.dateLabel}
