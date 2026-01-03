@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { CheckCircle2 } from 'lucide-react';
+import { CheckCircle2, Download } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { urlFor } from '../sanityClient';
 import VoiceIntro from './VoiceIntro';
@@ -211,8 +211,16 @@ const AboutSection: React.FC<AboutProps> = ({ data, onThemeChange, currentTheme 
                 ))}
               </ul>
               
-              <div className="pt-6">
+              <div className="pt-6 flex flex-wrap gap-4 items-center">
                   <VoiceIntro />
+                  <button
+                    onClick={() => window.print()}
+                    aria-label="Скачать резюме в формате PDF"
+                    className="flex items-center gap-2 px-6 py-3 font-semibold text-white bg-purple-600/50 rounded-full hover:bg-purple-600/80 transition-all duration-300 border border-purple-400/50 backdrop-blur-sm"
+                  >
+                    <Download size={18} />
+                    Скачать PDF
+                  </button>
               </div>
             </div>
           </motion.div>

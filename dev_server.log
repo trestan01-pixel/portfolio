@@ -1,0 +1,19 @@
+
+> portfolio-template@0.0.0 dev /app
+> vite
+
+
+  VITE v5.4.21  ready in 337 ms
+
+  ➜  Local:   http://localhost:5173/
+  ➜  Network: use --host to expose
+8:33:32 AM [vite] warning: Duplicate "snapToGrid" attribute in JSX element
+681|            onConnectEnd={onConnectEnd} // Обновленная функция
+682|            onReconnect={onReconnect} // Новая функция
+683|            snapToGrid={true} // Чтобы ровно ставилось
+   |            ^
+684|          >
+685|              <svg style={{ position: 'absolute', top: 0, left: 0, width: 0, height: 0, pointerEvents: 'none' }}>
+
+  Plugin: vite:esbuild
+  File: /app/src/features/BpmnMap/BpmnTool.tsx
