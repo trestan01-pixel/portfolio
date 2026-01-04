@@ -194,13 +194,12 @@ const HeroSection: React.FC<HeroProps> = ({ data }) => {
                 </MagneticButton>
 
                 {/* Вторичная кнопка - ВЕДЕТ НА CASES */}
-                <MagneticButton onClick={() => scrollTo('cases')}>
-                    <button 
-                        className="px-8 py-4 bg-white/5 border border-white/10 text-white rounded-full font-bold text-lg hover:bg-white/10 hover:border-white/30 transition-all flex items-center justify-center gap-2 w-full sm:w-auto"
-                    >
-                        <FileBarChart size={20} className="text-gray-400 group-hover:text-white" />
-                        Смотреть кейсы
-                    </button>
+                <MagneticButton
+                    onClick={() => scrollTo('cases')}
+                    className="px-8 py-4 bg-white/5 border border-white/10 text-white rounded-full font-bold text-lg hover:bg-white/10 hover:border-white/30 transition-all flex items-center justify-center gap-2 w-full sm:w-auto"
+                >
+                    <FileBarChart size={20} className="text-gray-400 group-hover:text-white" />
+                    Смотреть кейсы
                 </MagneticButton>
             </motion.div>
         </div>
