@@ -106,9 +106,11 @@ ${detailsText}
                         animate={shakeAnimation ? 'shake' : 'initial'}
                     >
                         <div className="relative group">
+                            <label htmlFor="name" className="sr-only">Ваше имя</label>
                             <User className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 group-focus-within:text-cyan-400 transition-colors" size={20} />
                             <input 
                                 type="text" 
+                                id="name"
                                 placeholder="Ваше имя" 
                                 className="w-full bg-slate-900/50 border border-slate-700 rounded-lg py-4 pl-12 pr-4 text-white focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-all hover-target"
                                 value={formData.name}
@@ -116,9 +118,11 @@ ${detailsText}
                             />
                         </div>
                         <div className="relative group">
+                            <label htmlFor="contact" className="sr-only">Телефон или Telegram</label>
                             <Phone className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 group-focus-within:text-cyan-400 transition-colors" size={20} />
                             <input 
                                 type="text" 
+                                id="contact"
                                 placeholder="Телефон или Telegram (@username)" 
                                 className="w-full bg-slate-900/50 border border-slate-700 rounded-lg py-4 pl-12 pr-4 text-white focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-all hover-target"
                                 value={formData.contact}
