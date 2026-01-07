@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { motion, useMotionValue, AnimatePresence } from 'framer-motion';
+import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion';
 
 type CursorType = 'default' | 'pointer' | 'text';
 
 const CustomCursor: React.FC = () => {
+  const prefersReducedMotion = usePrefersReducedMotion();
   const [cursorType, setCursorType] = useState<CursorType>('default');
   const [isVisible, setIsVisible] = useState(false);
   
@@ -61,7 +63,11 @@ const CustomCursor: React.FC = () => {
     };
   }, [mouseX, mouseY, isVisible]);
 
-  if (typeof window !== 'undefined' && window.innerWidth < 1024) return null;
+  // --- ACCESSIBILITY IMPROVEMENT ---
+  // Disable custom cursor if the user prefers reduced motion or on smaller screens.
+  if (prefersReducedMotion || (typeof window !== 'undefined' && window.innerWidth < 1024)) {
+    return null;
+  }
 
   return (
     // Применяем сырые значения mouseX и mouseY для мгновенной реакции
