@@ -1,17 +1,18 @@
 import React, { useRef, useState } from 'react';
 import { motion } from 'framer-motion';
+import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion';
 
-interface MagneticButtonProps {
+interface MagneticButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
-  className?: string;
-  onClick?: () => void;
 }
 
-const MagneticButton: React.FC<MagneticButtonProps> = ({ children, className, onClick }) => {
-  const ref = useRef<HTMLDivElement>(null);
+const MagneticButton: React.FC<MagneticButtonProps> = ({ children, className, ...props }) => {
+  const ref = useRef<HTMLButtonElement>(null);
   const [position, setPosition] = useState({ x: 0, y: 0 });
+  const prefersReducedMotion = usePrefersReducedMotion();
 
-  const handleMouse = (e: React.MouseEvent<HTMLDivElement>) => {
+  const handleMouse = (e: React.MouseEvent<HTMLButtonElement>) => {
+    if (prefersReducedMotion) return;
     const { clientX, clientY } = e;
     const { height, width, left, top } = ref.current?.getBoundingClientRect() || { height: 0, width: 0, left: 0, top: 0 };
     
@@ -22,23 +23,24 @@ const MagneticButton: React.FC<MagneticButtonProps> = ({ children, className, on
   };
 
   const reset = () => {
+    if (prefersReducedMotion) return;
     setPosition({ x: 0, y: 0 });
   };
 
   const { x, y } = position;
 
   return (
-    <motion.div
+    <motion.button
       ref={ref}
-      animate={{ x, y }}
+      animate={prefersReducedMotion ? { x: 0, y: 0 } : { x, y }}
       transition={{ type: "spring", stiffness: 150, damping: 15, mass: 0.1 }}
       onMouseMove={handleMouse}
       onMouseLeave={reset}
-      onClick={onClick}
       className={className}
+      {...props}
     >
       {children}
-    </motion.div>
+    </motion.button>
   );
 };
 
