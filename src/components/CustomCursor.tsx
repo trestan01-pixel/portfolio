@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { motion, useMotionValue, AnimatePresence } from 'framer-motion';
+import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion';
 
 type CursorType = 'default' | 'pointer' | 'text';
 
 const CustomCursor: React.FC = () => {
+  const prefersReducedMotion = usePrefersReducedMotion();
   const [cursorType, setCursorType] = useState<CursorType>('default');
   const [isVisible, setIsVisible] = useState(false);
   
@@ -80,7 +82,7 @@ const CustomCursor: React.FC = () => {
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.8 }}
-              transition={{ duration: 0.15 }}
+              transition={{ duration: prefersReducedMotion ? 0 : 0.15 }}
               width="24" height="24" viewBox="0 0 24 24" fill="none"
               // --- КЛЮЧЕВОЕ ИЗМЕНЕНИЕ 2: ПРИЦЕЛИВАНИЕ ---
               // Точная коррекция, чтобы острие (координаты 3,3 в SVG) было под курсором
@@ -104,7 +106,7 @@ const CustomCursor: React.FC = () => {
                 initial={{ opacity: 0, scale: 0.5 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.5 }}
-                transition={{ duration: 0.15 }}
+                transition={{ duration: prefersReducedMotion ? 0 : 0.15 }}
                 className="relative"
                 // Коррекция для "pointer" курсора (острие в 6,4)
                 style={{ x: -6, y: -4 }}
@@ -112,8 +114,12 @@ const CustomCursor: React.FC = () => {
                 <motion.svg 
                     width="48" height="48" viewBox="0 0 48 48" fill="none"
                     className="absolute -top-3 -left-3"
-                    animate={{ rotate: 360 }}
-                    transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+                    animate={{ rotate: prefersReducedMotion ? 0 : 360 }}
+                    transition={{
+                        duration: prefersReducedMotion ? 0 : 3,
+                        repeat: prefersReducedMotion ? 0 : Infinity,
+                        ease: "linear"
+                    }}
                 >
                     <circle cx="24" cy="24" r="22" stroke="#22d3ee" strokeWidth="1" strokeOpacity="0.3" strokeDasharray="10 10" />
                 </motion.svg>
@@ -138,7 +144,7 @@ const CustomCursor: React.FC = () => {
               initial={{ opacity: 0, scaleY: 0.5 }}
               animate={{ opacity: 1, scaleY: 1 }}
               exit={{ opacity: 0, scaleY: 0.5 }}
-              transition={{ duration: 0.1 }}
+              transition={{ duration: prefersReducedMotion ? 0 : 0.1 }}
               className="-translate-x-1/2 -translate-y-1/2" // Центрируем I-beam
             >
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
