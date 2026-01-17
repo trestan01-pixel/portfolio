@@ -22,7 +22,6 @@ import Books from '../components/BooksSection';
 import Footer from '../components/ContactSection';
 import LogoMarquee from '../components/LogoMarquee';
 import FAQ from '../components/FAQ';
-import CustomCursor from '../components/CustomCursor';
 import PrintResume from '../components/PrintResume';
 
 // Интерфейсы для данных из CMS
@@ -74,7 +73,6 @@ const Home: React.FC<HomeProps> = ({ data }) => {
   // --- ЕДИНСТВЕННЫЙ RETURN С ПРАВИЛЬНОЙ СТРУКТУРОЙ ---
   return (
     <main className="min-h-screen bg-[#0B0F19] text-white selection:bg-cyan-500 selection:text-white relative">
-      <CustomCursor />
       
       {/* Прогресс-бар скролла */}
       <motion.div
