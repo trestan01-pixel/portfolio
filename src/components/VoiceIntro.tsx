@@ -36,8 +36,10 @@ const VoiceIntro: React.FC = () => {
       
       {/* Кнопка Play/Pause */}
       <button 
+        type="button"
+        aria-label={isPlaying ? "Pause audio intro" : "Play audio intro"}
         onClick={togglePlay}
-        className="w-12 h-12 rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 flex items-center justify-center text-white shadow-lg shadow-cyan-500/20 hover:scale-105 active:scale-95 transition-transform relative z-10"
+        className="w-12 h-12 rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 flex items-center justify-center text-white shadow-lg shadow-cyan-500/20 hover:scale-105 active:scale-95 transition-transform relative z-10 focus-visible:ring-2 focus-visible:ring-cyan-500 focus-visible:ring-offset-2 focus-visible:ring-offset-[#111827]"
       >
         {isPlaying ? <Pause size={20} fill="currentColor" /> : <Play size={20} fill="currentColor" className="ml-1" />}
       </button>

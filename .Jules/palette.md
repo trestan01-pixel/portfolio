@@ -1,0 +1,3 @@
+## 2024-07-25 - Icon-Only Buttons Require ARIA Labels
+**Learning:** The `VoiceIntro.tsx` component used an icon-only `<button>` without a text label, making it inaccessible to screen reader users. This is a recurring pattern in modern UIs and a critical accessibility blind spot.
+**Action:** In future enhancements, specifically audit for icon-only interactive elements (`<button>`, `<a>`) and ensure they have a descriptive `aria-label` that clearly communicates their function and state.
