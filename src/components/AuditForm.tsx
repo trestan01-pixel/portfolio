@@ -140,6 +140,7 @@ ${detailsText}
                         </div>
 
                         <button 
+                            type="button"
                             onClick={handleSubmit}
                             disabled={isSubmitting || !privacyChecked}
                             className="w-full hover-target group relative inline-flex items-center justify-center gap-3 bg-black text-white px-10 py-5 text-base font-bold tracking-widest uppercase border border-slate-700 
