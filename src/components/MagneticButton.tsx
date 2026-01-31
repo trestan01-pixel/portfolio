@@ -28,17 +28,18 @@ const MagneticButton: React.FC<MagneticButtonProps> = ({ children, className, on
   const { x, y } = position;
 
   return (
-    <motion.div
-      ref={ref}
+    <motion.button
+      ref={ref as any}
+      type="button"
       animate={{ x, y }}
       transition={{ type: "spring", stiffness: 150, damping: 15, mass: 0.1 }}
       onMouseMove={handleMouse}
       onMouseLeave={reset}
       onClick={onClick}
-      className={className}
+      className={`${className} focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500`}
     >
       {children}
-    </motion.div>
+    </motion.button>
   );
 };
 

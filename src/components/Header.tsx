@@ -78,7 +78,7 @@ const Header: React.FC = () => {
       >
         {/* LOGO */}
         <div className="flex items-center pl-1 pr-2">
-            <a href="#" onClick={(e) => { e.preventDefault(); scrollTo('#hero'); }} className="block group">
+            <a href="#" onClick={(e) => { e.preventDefault(); scrollTo('#hero'); }} className="block group" aria-label="На главную">
                 <img 
                   src="favicon1.png" 
                   alt="Logo" 
@@ -142,7 +142,12 @@ const Header: React.FC = () => {
              </MagneticButton>
 
              {/* Mobile Burger */}
-             <button className="xl:hidden p-2 bg-white/10 rounded-full text-white hover:bg-white/20 transition-colors ml-1" onClick={() => setIsOpen(!isOpen)}>
+             <button
+                type="button"
+                aria-label={isOpen ? "Закрыть меню" : "Открыть меню"}
+                className="xl:hidden p-2 bg-white/10 rounded-full text-white hover:bg-white/20 transition-colors ml-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500"
+                onClick={() => setIsOpen(!isOpen)}
+             >
                 {isOpen ? <X size={20} /> : <Menu size={20} />}
              </button>
         </div>
