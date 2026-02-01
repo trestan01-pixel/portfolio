@@ -32,15 +32,20 @@ const VoiceIntro: React.FC = () => {
   };
 
   return (
-    <div className="mt-8 mb-4 inline-flex items-center gap-4 bg-[#111827] border border-white/10 rounded-full p-2 pr-6 shadow-lg backdrop-blur-md hover:border-cyan-500/30 transition-colors group cursor-pointer">
+    <button
+      type="button"
+      onClick={togglePlay}
+      aria-label={isPlaying ? "Поставить на паузу аудио-визитку" : "Слушать аудио-визитку"}
+      className="mt-8 mb-4 inline-flex items-center gap-4 bg-[#111827] border border-white/10 rounded-full p-2 pr-6 shadow-lg backdrop-blur-md hover:border-cyan-500/30 transition-colors group text-left appearance-none"
+    >
       
-      {/* Кнопка Play/Pause */}
-      <button 
-        onClick={togglePlay}
-        className="w-12 h-12 rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 flex items-center justify-center text-white shadow-lg shadow-cyan-500/20 hover:scale-105 active:scale-95 transition-transform relative z-10"
+      {/* Визуальный индикатор Play/Pause */}
+      <div
+        className="w-12 h-12 rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 flex items-center justify-center text-white shadow-lg shadow-cyan-500/20 group-hover:scale-105 group-active:scale-95 transition-transform relative z-10"
+        aria-hidden="true"
       >
         {isPlaying ? <Pause size={20} fill="currentColor" /> : <Play size={20} fill="currentColor" className="ml-1" />}
-      </button>
+      </div>
 
       {/* Аудио элемент (скрытый) */}
       <audio 
@@ -52,11 +57,14 @@ const VoiceIntro: React.FC = () => {
 
       <div className="flex flex-col gap-1 min-w-[140px]">
         <div className="flex justify-between items-center">
-            <span className="text-[10px] font-bold text-gray-400 uppercase tracking-wider group-hover:text-cyan-400 transition-colors">
-                {isPlaying ? "Слушать интро" : "Аудио-визитка"}
+            <span
+              className="text-[10px] font-bold text-gray-400 uppercase tracking-wider group-hover:text-cyan-400 transition-colors"
+              aria-live="polite"
+            >
+                {isPlaying ? "Сейчас играет" : "Аудио-визитка"}
             </span>
             {isPlaying && (
-                <div className="flex gap-0.5 items-end h-3">
+                <div className="flex gap-0.5 items-end h-3" aria-hidden="true">
                     {[...Array(3)].map((_, i) => (
                         <motion.div 
                            key={i}
@@ -70,7 +78,7 @@ const VoiceIntro: React.FC = () => {
         </div>
         
         {/* Визуализация волны */}
-        <div className="flex items-center gap-0.5 h-6 cursor-pointer" onClick={togglePlay}>
+        <div className="flex items-center gap-0.5 h-6" aria-hidden="true">
             {[...Array(24)].map((_, i) => (
                 <motion.div
                     key={i}
@@ -92,7 +100,7 @@ const VoiceIntro: React.FC = () => {
             ))}
         </div>
       </div>
-    </div>
+    </button>
   );
 };
 
