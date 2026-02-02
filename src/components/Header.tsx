@@ -142,7 +142,11 @@ const Header: React.FC = () => {
              </MagneticButton>
 
              {/* Mobile Burger */}
-             <button className="xl:hidden p-2 bg-white/10 rounded-full text-white hover:bg-white/20 transition-colors ml-1" onClick={() => setIsOpen(!isOpen)}>
+             <button
+               className="xl:hidden p-2 bg-white/10 rounded-full text-white hover:bg-white/20 transition-colors ml-1 focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:outline-none"
+               onClick={() => setIsOpen(!isOpen)}
+               aria-label={isOpen ? 'Закрыть меню' : 'Открыть меню'}
+             >
                 {isOpen ? <X size={20} /> : <Menu size={20} />}
              </button>
         </div>

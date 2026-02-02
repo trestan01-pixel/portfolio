@@ -140,8 +140,9 @@ const ContactSection = () => {
                     <h3 className="text-xl font-bold text-white mb-6">Заявка на стратегию</h3>
                     <form onSubmit={handleSubmit} className="space-y-5 relative z-10">
                       <div>
-                        <label className="text-sm text-gray-400 mb-2 block">Ваше имя</label>
+                        <label htmlFor="name" className="text-sm text-gray-400 mb-2 block">Ваше имя</label>
                         <input 
+                          id="name"
                           type="text" 
                           required
                           placeholder="Иван Иванов" 
@@ -151,8 +152,9 @@ const ContactSection = () => {
                         />
                       </div>
                       <div>
-                        <label className="text-sm text-gray-400 mb-2 block">Контакты (Телефон или Telegram)</label>
+                        <label htmlFor="contact" className="text-sm text-gray-400 mb-2 block">Контакты (Телефон или Telegram)</label>
                         <input 
+                          id="contact"
                           type="text" 
                           required
                           placeholder="@username / +7..." 
@@ -162,8 +164,9 @@ const ContactSection = () => {
                         />
                       </div>
                       <div>
-                        <label className="text-sm text-gray-400 mb-2 block">Какую задачу нужно решить?</label>
+                        <label htmlFor="message" className="text-sm text-gray-400 mb-2 block">Какую задачу нужно решить?</label>
                         <textarea 
+                          id="message"
                           rows={4} 
                           required
                           placeholder="Например: хочу выйти из операционки, масштабировать продажи или внедрить CRM..." 

@@ -74,7 +74,6 @@ const Home: React.FC<HomeProps> = ({ data }) => {
   // --- ЕДИНСТВЕННЫЙ RETURN С ПРАВИЛЬНОЙ СТРУКТУРОЙ ---
   return (
     <main className="min-h-screen bg-[#0B0F19] text-white selection:bg-cyan-500 selection:text-white relative">
-      <CustomCursor />
       
       {/* Прогресс-бар скролла */}
       <motion.div
@@ -160,7 +159,8 @@ const Home: React.FC<HomeProps> = ({ data }) => {
           pointerEvents: showScrollTop ? 'auto' : 'none'
         }}
         onClick={scrollToTop}
-        className="fixed bottom-8 right-8 z-40 p-3 bg-cyan-500 hover:bg-cyan-400 text-white rounded-full shadow-lg shadow-cyan-500/30 transition-colors"
+        aria-label="Наверх"
+        className="fixed bottom-8 right-8 z-40 p-3 bg-cyan-500 hover:bg-cyan-400 text-white rounded-full shadow-lg shadow-cyan-500/30 transition-colors focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none"
       >
         <ArrowUp size={24} />
       </motion.button>
