@@ -106,8 +106,10 @@ ${detailsText}
                         animate={shakeAnimation ? 'shake' : 'initial'}
                     >
                         <div className="relative group">
+                            <label htmlFor="audit-name" className="sr-only">Ваше имя</label>
                             <User className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 group-focus-within:text-cyan-400 transition-colors" size={20} />
                             <input 
+                                id="audit-name"
                                 type="text" 
                                 placeholder="Ваше имя" 
                                 className="w-full bg-slate-900/50 border border-slate-700 rounded-lg py-4 pl-12 pr-4 text-white focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-all hover-target"
@@ -116,8 +118,10 @@ ${detailsText}
                             />
                         </div>
                         <div className="relative group">
+                            <label htmlFor="audit-contact" className="sr-only">Телефон или Telegram (@username)</label>
                             <Phone className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 group-focus-within:text-cyan-400 transition-colors" size={20} />
                             <input 
+                                id="audit-contact"
                                 type="text" 
                                 placeholder="Телефон или Telegram (@username)" 
                                 className="w-full bg-slate-900/50 border border-slate-700 rounded-lg py-4 pl-12 pr-4 text-white focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-all hover-target"
@@ -140,6 +144,7 @@ ${detailsText}
                         </div>
 
                         <button 
+                            type="button"
                             onClick={handleSubmit}
                             disabled={isSubmitting || !privacyChecked}
                             className="w-full hover-target group relative inline-flex items-center justify-center gap-3 bg-black text-white px-10 py-5 text-base font-bold tracking-widest uppercase border border-slate-700 
