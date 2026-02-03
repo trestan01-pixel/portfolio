@@ -153,6 +153,8 @@ const Home: React.FC<HomeProps> = ({ data }) => {
 
       {/* Кнопка "Наверх" */}
       <motion.button
+        type="button"
+        aria-label="Наверх"
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ 
           opacity: showScrollTop ? 1 : 0, 
