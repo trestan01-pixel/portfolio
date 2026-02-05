@@ -19,19 +19,24 @@ const AuditForm: React.FC<AuditFormProps> = ({ checkedCount, checkedItems, audit
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [shakeAnimation, setShakeAnimation] = useState(false);
+  const [errors, setErrors] = useState({ name: false, contact: false });
+  const [submitError, setSubmitError] = useState(false);
 
   const handleSubmit = async () => {
-    if (!privacyChecked) {
+    const newErrors = {
+      name: !formData.name,
+      contact: !formData.contact
+    };
+    setErrors(newErrors);
+
+    if (newErrors.name || newErrors.contact || !privacyChecked) {
       setShakeAnimation(true);
       setTimeout(() => setShakeAnimation(false), 500);
       return;
     }
-    if (!formData.name || !formData.contact) {
-        alert("Пожалуйста, заполните имя и контакт");
-        return;
-    }
     
     setIsSubmitting(true);
+    setSubmitError(false);
     
     const isTotalFailure = checkedCount === 30;
     let verdict = "Зона контроля";
@@ -63,7 +68,7 @@ ${detailsText}
 `;
 
     try {
-      await fetch(`https://api.telegram.org/bot${TG_BOT_TOKEN}/sendMessage`, {
+      const response = await fetch(`https://api.telegram.org/bot${TG_BOT_TOKEN}/sendMessage`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -72,9 +77,10 @@ ${detailsText}
           parse_mode: 'HTML',
         }),
       });
+      if (!response.ok) throw new Error('Failed to send');
       setIsSuccess(true);
     } catch (error) {
-      alert("Ошибка отправки. Пожалуйста, напишите мне в Telegram напрямую: @Trestan01");
+      setSubmitError(true);
     } finally {
       setIsSubmitting(false);
     }
@@ -106,23 +112,37 @@ ${detailsText}
                         animate={shakeAnimation ? 'shake' : 'initial'}
                     >
                         <div className="relative group">
+                            <label htmlFor="audit-name" className="sr-only">Ваше имя</label>
                             <User className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 group-focus-within:text-cyan-400 transition-colors" size={20} />
                             <input 
+                                id="audit-name"
                                 type="text" 
                                 placeholder="Ваше имя" 
-                                className="w-full bg-slate-900/50 border border-slate-700 rounded-lg py-4 pl-12 pr-4 text-white focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-all hover-target"
+                                className={`w-full bg-slate-900/50 border rounded-lg py-4 pl-12 pr-4 text-white focus:outline-none focus:ring-1 transition-all hover-target ${errors.name ? 'border-red-500 focus:border-red-500 focus:ring-red-500' : 'border-slate-700 focus:border-cyan-500 focus:ring-cyan-500'}`}
                                 value={formData.name}
-                                onChange={(e) => setFormData({...formData, name: e.target.value})}
+                                onChange={(e) => {
+                                    setFormData({...formData, name: e.target.value});
+                                    if (errors.name) setErrors({...errors, name: false});
+                                }}
+                                aria-required="true"
+                                aria-invalid={errors.name}
                             />
                         </div>
                         <div className="relative group">
+                            <label htmlFor="audit-contact" className="sr-only">Телефон или Telegram (@username)</label>
                             <Phone className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 group-focus-within:text-cyan-400 transition-colors" size={20} />
                             <input 
+                                id="audit-contact"
                                 type="text" 
                                 placeholder="Телефон или Telegram (@username)" 
-                                className="w-full bg-slate-900/50 border border-slate-700 rounded-lg py-4 pl-12 pr-4 text-white focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-all hover-target"
+                                className={`w-full bg-slate-900/50 border rounded-lg py-4 pl-12 pr-4 text-white focus:outline-none focus:ring-1 transition-all hover-target ${errors.contact ? 'border-red-500 focus:border-red-500 focus:ring-red-500' : 'border-slate-700 focus:border-cyan-500 focus:ring-cyan-500'}`}
                                 value={formData.contact}
-                                onChange={(e) => setFormData({...formData, contact: e.target.value})}
+                                onChange={(e) => {
+                                    setFormData({...formData, contact: e.target.value});
+                                    if (errors.contact) setErrors({...errors, contact: false});
+                                }}
+                                aria-required="true"
+                                aria-invalid={errors.contact}
                             />
                         </div>
                         
@@ -140,8 +160,10 @@ ${detailsText}
                         </div>
 
                         <button 
+                            type="button"
                             onClick={handleSubmit}
-                            disabled={isSubmitting || !privacyChecked}
+                            disabled={isSubmitting}
+                            aria-label="Записаться на разбор"
                             className="w-full hover-target group relative inline-flex items-center justify-center gap-3 bg-black text-white px-10 py-5 text-base font-bold tracking-widest uppercase border border-slate-700 
                                 shadow-[0_0_30px_rgba(6,182,212,0.3)] 
                                 hover:shadow-[0_0_60px_rgba(6,182,212,0.6)] 
@@ -154,10 +176,25 @@ ${detailsText}
                                 <><span className="relative z-10">Записаться на разбор</span><ArrowRight size={20} className="group-hover:translate-x-1 transition-transform text-cyan-400" /></>
                             )}
                         </button>
-                        {!privacyChecked && (
-                             <p className="text-cyan-500 text-xs font-mono animate-pulse">
-                                ↑ Сначала примите политику конфиденциальности
-                             </p>
+
+                        {(errors.name || errors.contact || !privacyChecked || submitError) && (
+                             <div className="space-y-1">
+                                {!privacyChecked && (
+                                    <p className="text-cyan-500 text-xs font-mono animate-pulse">
+                                        ↑ Сначала примите политику конфиденциальности
+                                    </p>
+                                )}
+                                {(errors.name || errors.contact) && (
+                                    <p className="text-red-500 text-xs font-mono">
+                                        Пожалуйста, заполните все обязательные поля
+                                    </p>
+                                )}
+                                {submitError && (
+                                    <p className="text-red-500 text-xs font-mono">
+                                        Ошибка отправки. Напишите мне в Telegram: @Trestan01
+                                    </p>
+                                )}
+                             </div>
                         )}
                     </motion.div>
                 ) : (
