@@ -37,6 +37,7 @@ const VoiceIntro: React.FC = () => {
       {/* Кнопка Play/Pause */}
       <button 
         onClick={togglePlay}
+        aria-label={isPlaying ? 'Пауза' : 'Воспроизвести аудио-визитку'}
         className="w-12 h-12 rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 flex items-center justify-center text-white shadow-lg shadow-cyan-500/20 hover:scale-105 active:scale-95 transition-transform relative z-10"
       >
         {isPlaying ? <Pause size={20} fill="currentColor" /> : <Play size={20} fill="currentColor" className="ml-1" />}
@@ -56,7 +57,7 @@ const VoiceIntro: React.FC = () => {
                 {isPlaying ? "Слушать интро" : "Аудио-визитка"}
             </span>
             {isPlaying && (
-                <div className="flex gap-0.5 items-end h-3">
+                <div className="flex gap-0.5 items-end h-3" aria-hidden="true">
                     {[...Array(3)].map((_, i) => (
                         <motion.div 
                            key={i}
@@ -70,7 +71,7 @@ const VoiceIntro: React.FC = () => {
         </div>
         
         {/* Визуализация волны */}
-        <div className="flex items-center gap-0.5 h-6 cursor-pointer" onClick={togglePlay}>
+        <div className="flex items-center gap-0.5 h-6 cursor-pointer" onClick={togglePlay} aria-hidden="true">
             {[...Array(24)].map((_, i) => (
                 <motion.div
                     key={i}
