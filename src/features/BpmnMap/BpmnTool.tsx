@@ -661,7 +661,6 @@ const onReconnect = useCallback((oldEdge: any, newConnection: any) => {
             onMouseDown={handleMouseDown} onMouseMove={handleMouseMove} onMouseUp={handleMouseUp} proOptions={{ hideAttribution: true }} 
             onConnectEnd={onConnectEnd}  // Обновленная функция
             onReconnect={onReconnect}    // Новая функция
-            snapToGrid={true}            // Чтобы ровно ставилось
           >
             <svg style={{ position: 'absolute', top: 0, left: 0, width: 0, height: 0, pointerEvents: 'none' }}>
               <defs>

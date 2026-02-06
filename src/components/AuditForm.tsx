@@ -107,9 +107,12 @@ ${detailsText}
                     >
                         <div className="relative group">
                             <User className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 group-focus-within:text-cyan-400 transition-colors" size={20} />
+                            <label htmlFor="audit-name" className="sr-only">Ваше имя</label>
                             <input 
+                                id="audit-name"
                                 type="text" 
                                 placeholder="Ваше имя" 
+                                aria-required="true"
                                 className="w-full bg-slate-900/50 border border-slate-700 rounded-lg py-4 pl-12 pr-4 text-white focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-all hover-target"
                                 value={formData.name}
                                 onChange={(e) => setFormData({...formData, name: e.target.value})}
@@ -117,9 +120,12 @@ ${detailsText}
                         </div>
                         <div className="relative group">
                             <Phone className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 group-focus-within:text-cyan-400 transition-colors" size={20} />
+                            <label htmlFor="audit-contact" className="sr-only">Телефон или Telegram</label>
                             <input 
+                                id="audit-contact"
                                 type="text" 
                                 placeholder="Телефон или Telegram (@username)" 
+                                aria-required="true"
                                 className="w-full bg-slate-900/50 border border-slate-700 rounded-lg py-4 pl-12 pr-4 text-white focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-all hover-target"
                                 value={formData.contact}
                                 onChange={(e) => setFormData({...formData, contact: e.target.value})}
