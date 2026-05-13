@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мой Игровой Мир - Будущее после Катаклизма</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="game-container">
+        <!-- Верхняя панель: информация о игроке и квестах -->
+        <div id="top-panel">
+            <div id="player-info-top">
+                <img src="https://i.pinimg.com/736x/d4/50/24/d45024b5a003fe980848216645cf207d.jpg" alt="Аватар игрока" class="player-avatar">
+                <div class="player-details">
+                    <span class="player-name">Руслан Юмагулов</span>
+                    <div class="player-level-bar">
+                        <div class="xp-bar" style="width: 70%;"></div>
+                        <span class="xp-text">70/100 Опыта</span>
+                    </div>
+                </div>
+            </div>
+            <div id="quest-panel">
+                <div class="panel-header"># Информация о Задании</div>
+                <div class="quest-item">
+                    <div class="quest-title"># Задание</div>
+                    <p>Найти потерянный "Двигатель Сингулярности" в древних руинах Тота</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Центральная часть: боковое меню и основной контент -->
+        <div id="main-content-area">
+            <div id="side-menu">
+                <div class="menu-item active" onclick="showSection('settlement')">
+                    <img src="https://i.pinimg.com/1200x/d4/4e/37/d44e37e74f38b07fa084148e001d32df.jpg" alt="Иконка Поселения">
+
+                    <span>Поселение</span>
+                </div>
+                <div class="menu-item" onclick="showSection('skillscape')">
+                    <img src="https://i.pinimg.com/736x/de/57/cb/de57cb14033a9ecf87274073910b4494.jpg" alt="Иконка Навыков">
+                    <span>Навыки</span>
+                </div>
+                <div class="menu-item" onclick="showSection('inventory')">
+                    <img src="https://i.pinimg.com/1200x/db/b8/c4/dbb8c4169775beba6f44880b2bd11311.jpg" alt="Иконка Инвентаря">
+                    <span>Инвентарь</span>
+                </div>
+                <div class="menu-item" onclick="showSection('library')">
+                    <img src="https://i.pinimg.com/736x/00/c9/17/00c917ba882507a542af8bb0b90ecc7e.jpg" alt="Иконка Библиотеки">
+                    <span>Библиотека</span>
+                </div>
+                <!-- Добавляй сюда больше пунктов меню по аналогии -->
+            </div>
+
+            <div id="center-panel">
+                <div id="settlement" class="content-section active">
+                    <div class="panel-header"># Вид Поселения</div>
+                    <p>Здесь будет вид вашего поселения и градостроительные элементы.</p>
+                </div>
+                <div id="skillscape" class="content-section" style="display:none;">
+                    <div class="panel-header"># Навыки / Характеристики</div>
+                    <p>Здесь будут ваши характеристики, радар-чарт и магические наклонности.</p>
+                    <p>Интеллект: <span id="int">13</span> (Магия: +3)</p>
+                    <p>Бой: <span id="combat">9</span> (1)</p>
+                    <button onclick="addIntellect()">Изучить свиток (+1 Интеллект)</button>
+                </div>
+                <div id="inventory" class="content-section" style="display:none;">
+                    <div class="panel-header"># Инвентарь</div>
+                    <p>Здесь будут ваши предметы и артефакты.</p>
+                </div>
+                 <div id="library" class="content-section" style="display:none;">
+                    <div class="panel-header"># Библиотека (Медиа, Знания, Цели)</div>
+
+                    <div class="library-form-card">
+                        <label for="mediaTitle">Название:</label>
+                        <input type="text" id="mediaTitle" placeholder="Название книги, игры, фильма..." required>
+
+                        <label for="mediaType">Тип:</label>
+                        <select id="mediaType">
+                            <option value="book">Книга</option>
+                            <option value="game">Игра</option>
+                            <option value="movie">Фильм</option>
+                            <option value="anime">Аниме/Сериал</option>
+                            <option value="sport">Спорт/Тренировка</option>
+                            <option value="finance">Финансы/Экономика</option>
+                            <option value="science">Научная статья/Документальный фильм</option>
+                            <option value="other">Другое</option>
+                        </select>
+
+                        <label for="mediaCoverUrl">Ссылка на обложку (URL):</label>
+                        <input type="text" id="mediaCoverUrl" placeholder="Вставьте URL картинки обложки">
+
+                        <label for="mediaBonusDescription">Что дало лично тебе (ключевые слова для бонусов):</label>
+                        <input type="text" id="mediaBonusDescription" placeholder="Например: 'стойкость, логика, лидерство, смекалка'">
+
+                        <button onclick="addMediaToLibrary()">Добавить в Библиотеку</button>
+                    </div>
+
+                    <div class="panel-header" style="margin-top: 20px;"># Моя Библиотека</div>
+                    <div id="library-list">
+                        <!-- Здесь будут отображаться добавленные медиа-ресурсы -->
+                        <p>Пока ничего не добавлено.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Нижняя панель: статы и уведомления -->
+        <div id="bottom-panel">
+            <div id="player-stats-bottom">
+                <p>Интеллект: <span id="int-bottom">13</span> (Магия:+3)</p>
+                <p>Бой: <span id="combat-bottom">9</span> (1)</p>
+            </div>
+            <div id="notifications-area">
+                <div class="notification-item">
+                    <span class="icon warning">⚠</span> Артефакт найден: "Квантовое Кодирование" рецепт разблокирован для поселения!
+                </div>
+                 <div class="notification-item">
+                    <span class="icon info">ℹ</span> Артефакт найден: ? буи&* Исследуйте Фиипницу; Новый квест "Финансовая Аномалия в Секторе 7".
+                </div>
+            </div>
+            <div id="quick-actions">
+                <!-- Здесь будут иконки быстрых действий -->
+                <button class="quick-action-button">⚙</button>
+                <button class="quick-action-button">⚔</button>
+                <button class="quick-action-button">🗺</button>
+                <button class="quick-action-button">📈</button>
+                <button class="quick-action-button">📦</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
