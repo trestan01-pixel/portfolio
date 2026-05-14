@@ -119,6 +119,45 @@ function enroll(schoolName, type) {
 }
 
 /**
+ * Perform training in the enrolled academy.
+ */
+function train() {
+    if (!playerData.school) {
+        addNotification('warning', 'Сначала нужно записаться в академию!');
+        return;
+    }
+
+    if (playerData.mentalPower < 10) {
+        addNotification('warning', 'Недостаточно ментальной энергии!');
+        return;
+    }
+
+    playerData.mentalPower -= 10;
+    playerData.school.progress += 10;
+
+    addNotification('info', 'Тренировка прошла успешно! +10 к прогрессу.');
+
+    if (playerData.school.progress >= playerData.school.maxProgress) {
+        playerData.school.progress = 0;
+        playerData.school.stage += 1;
+
+        // Rewards for completing a stage
+        playerData.intellect += 2;
+        playerData.xp += 50;
+
+        addNotification('info', `Ступень завершена! Теперь вы на ${playerData.school.stage} ступени.`);
+
+        if (playerData.school.stage > 5) {
+            addNotification('info', `Поздравляем! Вы завершили обучение в ${playerData.school.name}!`);
+            playerData.school = null;
+        }
+    }
+
+    updatePlayerStats();
+    saveGame();
+}
+
+/**
  * Randomly finds an artifact.
  */
 function findArtifact() {
@@ -263,12 +302,39 @@ function updatePlayerStats() {
         '#combat': playerData.combat,
         '#int-bottom': playerData.intellect,
         '#combat-bottom': playerData.combat,
-        '#academy-rank': playerData.school ? `${playerData.school.name} (${playerData.school.stage} ступень)` : 'Нет'
+        '#academy-rank': playerData.school ? `${playerData.school.name} (${playerData.school.stage} ступень)` : 'Нет',
+        '#mental': Math.floor(playerData.mentalPower),
+        '#mental-max': playerData.maxMentalPower,
+        '#mental-bottom': Math.floor(playerData.mentalPower),
+        '#mental-max-bottom': playerData.maxMentalPower
     };
 
     for (let selector in elements) {
         const el = document.querySelector(selector);
         if (el) el.textContent = elements[selector];
+    }
+
+    // Update Academy UI visibility and progress
+    const trainingBlock = document.getElementById('academy-training-block');
+    const academyGrid = document.querySelector('.academy-grid');
+
+    if (playerData.school) {
+        if (trainingBlock) trainingBlock.style.display = 'block';
+        if (academyGrid) academyGrid.style.display = 'none';
+
+        const progressBar = document.getElementById('academy-progress-bar');
+        const progressText = document.getElementById('academy-progress-text');
+
+        if (progressBar) {
+            const percentage = (playerData.school.progress / playerData.school.maxProgress) * 100;
+            progressBar.style.width = `${percentage}%`;
+        }
+        if (progressText) {
+            progressText.textContent = `${playerData.school.progress}/${playerData.school.maxProgress}`;
+        }
+    } else {
+        if (trainingBlock) trainingBlock.style.display = 'none';
+        if (academyGrid) academyGrid.style.display = 'grid';
     }
 
     const xpBar = document.querySelector('.xp-bar');
@@ -410,7 +476,18 @@ document.addEventListener('DOMContentLoaded', () => {
     renderInventory();
 });
 
+// Mental Power regeneration
+if (!window.mentalRegenInterval) {
+    window.mentalRegenInterval = setInterval(() => {
+        if (playerData.mentalPower < playerData.maxMentalPower) {
+            playerData.mentalPower = Math.min(playerData.maxMentalPower, playerData.mentalPower + 1);
+            updatePlayerStats();
+        }
+    }, 5000); // Regenerate 1 point every 5 seconds
+}
+
 // Helper for UI buttons
+window.train = train;
 window.addIntellect = function() {
     playerData.intellect += 1;
     playerData.xp += 10;

@@ -50,7 +50,7 @@
                     <span>Библиотека</span>
                 </div>
                 <div class="menu-item" onclick="showSection('academy')">
-                    <img src="https://i.pinimg.com/736x/de/57/cb/de57cb14033a9ecf87274073910b4494.jpg" alt="Иконка Академии">
+                    <img src="https://i.pinimg.com/736x/8b/11/d8/8b11d880b2bd11311.jpg" alt="Иконка Академии">
                     <span>Академия</span>
                 </div>
                 <!-- Добавляй сюда больше пунктов меню по аналогии -->
@@ -66,6 +66,7 @@
                     <p>Здесь будут ваши характеристики, радар-чарт и магические наклонности.</p>
                     <p>Интеллект: <span id="int">13</span> (Магия: +3)</p>
                     <p>Бой: <span id="combat">9</span> (1)</p>
+                    <p>Ментальная Сила: <span id="mental">100</span> / <span id="mental-max">100</span></p>
                     <hr style="border-color: #444;">
                     <div id="elemental-stats" style="font-size: 10px; color: #00ffff;">
                         <p>Огонь: <span id="stat-fire">0</span> | Вода: <span id="stat-water">0</span></p>
@@ -92,16 +93,26 @@
                 <div id="academy" class="content-section" style="display:none;">
                     <div class="panel-header"># Выбор Школы / Обучение</div>
                     <p>Ваш текущий ранг: <span id="academy-rank">Нет</span></p>
+
+                    <div id="academy-training-block" style="display:none; margin-bottom: 20px; border: 1px solid var(--accent-cyan); padding: 15px; border-radius: 8px; background: rgba(0, 242, 255, 0.05);">
+                        <h3 style="color: var(--accent-cyan); margin: 0 0 15px 0; font-family: 'Press Start 2P', cursive; font-size: 10px;">ОБУЧЕНИЕ В РАЗГАРЕ</h3>
+                        <div class="player-level-bar" style="width: 100%; height: 15px; margin-bottom: 5px;">
+                            <div id="academy-progress-bar" class="xp-bar" style="width: 0%; background: linear-gradient(90deg, var(--accent-green), var(--accent-cyan));"></div>
+                        </div>
+                        <p style="font-size: 10px; color: var(--text-dim); margin-bottom: 15px;">Прогресс: <span id="academy-progress-text">0/100</span></p>
+                        <button onclick="train()" style="width: 100%; font-size: 8px; line-height: 1.4; padding: 10px 5px;">ОБУЧАТЬСЯ (10 МЕНТАЛЬНОЙ ЭНЕРГИИ)</button>
+                    </div>
+
                     <div class="academy-grid" style="display:grid; grid-template-columns: 1fr 1fr; gap: 10px;">
                         <div class="academy-card" style="border: 1px solid #444; padding: 10px;">
                             <h3>Школа Мечников</h3>
                             <p>Базовое обучение (3-6 мес)</p>
-                            <button onclick="enroll('Swordsman', 'Basic')">Записаться</button>
+                            <button class="enroll-btn" onclick="enroll('Swordsman', 'Basic')">ЗАПИСАТЬСЯ</button>
                         </div>
                         <div class="academy-card" style="border: 1px solid #444; padding: 10px;">
                             <h3>Королевская Академия</h3>
                             <p>Элитное обучение (1-3 года)</p>
-                            <button onclick="enroll('Royal', 'Elite')">Записаться</button>
+                            <button class="enroll-btn" onclick="enroll('Royal', 'Elite')">ЗАПИСАТЬСЯ</button>
                         </div>
                     </div>
                 </div>
@@ -144,9 +155,10 @@
 
         <!-- Нижняя панель: статы и уведомления -->
         <div id="bottom-panel">
-            <div id="player-stats-bottom">
-                <p>Интеллект: <span id="int-bottom">13</span> (Магия:+3)</p>
-                <p>Бой: <span id="combat-bottom">9</span> (1)</p>
+            <div id="player-stats-bottom" style="display: flex; gap: 30px; align-items: center;">
+                <p>ИНТ: <span id="int-bottom">13</span></p>
+                <p>БОЙ: <span id="combat-bottom">9</span></p>
+                <p>МЕНТАЛ: <span id="mental-bottom">100</span>/<span id="mental-max-bottom">100</span></p>
             </div>
             <div id="notifications-area">
                 <div class="notification-item">

@@ -280,11 +280,18 @@ input:focus {
     border: 1px solid var(--border-color) !important;
     border-radius: 8px;
     transition: transform 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .academy-card:hover {
     transform: translateY(-5px);
     border-color: var(--accent-cyan) !important;
+}
+
+#academy-training-block {
+    box-shadow: 0 0 20px rgba(0, 242, 255, 0.1);
 }
 
 /* Прокрутка */
