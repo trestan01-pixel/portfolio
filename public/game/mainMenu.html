@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Главное меню - Мой Игровой Мир</title>
+    <link rel="stylesheet" href="style.css"> <!-- Используем тот же CSS -->
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #0a0c10;
+            background-image: radial-gradient(circle at center, #161b22 0%, #0a0c10 100%);
+            background-size: cover;
+            background-position: center;
+        }
+
+        #main-menu-container {
+            background-color: #161b22;
+            border: 1px solid #30363d;
+            border-top: 4px solid #00f2ff;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            padding: 40px 50px;
+            border-radius: 12px;
+            text-align: center;
+            max-width: 550px;
+            color: #e6edf3;
+        }
+
+        #main-menu-container h1 {
+            font-family: 'Press Start 2P', cursive;
+            color: #00f2ff;
+            font-size: 24px;
+            margin-bottom: 35px;
+            text-shadow: 0 0 15px rgba(0, 242, 255, 0.4);
+        }
+
+        #main-menu-container .menu-option {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        #main-menu-container label {
+            display: block;
+            margin-bottom: 5px;
+            color: #e0e0e0;
+            font-size: 14px;
+        }
+
+        #main-menu-container select,
+        #main-menu-container input[type="text"] {
+            width: calc(100% - 20px);
+            padding: 8px;
+            margin-top: 5px;
+            background-color: #444;
+            border: 1px solid #00ffff;
+            color: #e0e0e0;
+            border-radius: 5px;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 12px;
+        }
+
+        #main-menu-container button {
+            background-color: #008080;
+            border: 1px solid #00ffff;
+            color: #fff;
+            padding: 12px 25px;
+            margin-top: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+            transition: background-color 0.1s ease-in-out;
+            width: 100%;
+        }
+
+        #main-menu-container button:hover {
+            background-color: #00aaaa;
+        }
+
+        /* Дополнительные стили для скрытия элементов, если нужно */
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="main-menu-container">
+        <h1>Мой Игровой Мир</h1>
+
+        <div class="menu-option">
+            <label for="playerName">Имя героя:</label>
+            <input type="text" id="playerName" value="Руслан">
+        </div>
+
+        <div class="menu-option">
+            <label for="difficulty">Сложность:</label>
+            <select id="difficulty">
+                <option value="easy">Легкая</option>
+                <option value="normal" selected>Средняя</option>
+                <option value="hard">Сложная</option>
+                <option value="oneLife">Одна жизнь (хардкор)</option>
+            </select>
+        </div>
+
+        <div class="menu-option">
+            <label for="characterClass">Класс персонажа (16 лет):</label>
+            <select id="characterClass">
+                <option value="peasant">Крестьянин</option>
+                <option value="slave">Раб</option>
+                <option value="banditSon">Сын разбойника</option>
+                <option value="mageApprentice">Ученик мага</option>
+                <option value="archerArchitect">Лучник-архитектор</option>
+                <!-- Здесь будут другие классы -->
+            </select>
+        </div>
+
+        <div class="menu-option">
+            <label for="dream">Мечта персонажа (12 лет):</label>
+            <input type="text" id="dream" value="Стать Императором и восстановить мир">
+        </div>
+
+        <button onclick="startGame()">Начать Новую Игру</button>
+        <!-- <button onclick="loadGame()">Загрузить Игру</button> -->
+    </div>
+
+    <script>
+        function startGame() {
+            const playerName = document.getElementById('playerName').value;
+            const difficulty = document.getElementById('difficulty').value;
+            const characterClass = document.getElementById('characterClass').value;
+            const dream = document.getElementById('dream').value;
+
+            localStorage.setItem('gamePlayerName', playerName);
+            localStorage.setItem('gameDifficulty', difficulty);
+            localStorage.setItem('gameCharacterClass', characterClass);
+            localStorage.setItem('gameDream', dream);
+            // Устанавливаем флаг, что игра начата
+            localStorage.setItem('gameStarted', 'true'); // Убедись, что эта строка есть!
+
+            // ПЕРЕНАПРАВЛЕНИЕ:
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>

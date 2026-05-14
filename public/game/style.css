@@ -1,0 +1,310 @@
+/* --- ОБНОВЛЕННЫЙ ДИЗАЙН: КИБЕР-ПИКСЕЛЬ --- */
+
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=JetBrains+Mono:wght@400;700&display=swap');
+
+:root {
+    --bg-dark: #0a0c10;
+    --bg-panel: #161b22;
+    --accent-cyan: #00f2ff;
+    --accent-blue: #2196f3;
+    --accent-green: #39ff14;
+    --accent-red: #ff3131;
+    --border-color: #30363d;
+    --text-main: #e6edf3;
+    --text-dim: #8b949e;
+}
+
+body {
+    margin: 0;
+    font-family: 'JetBrains Mono', monospace;
+    background-color: var(--bg-dark);
+    color: var(--text-main);
+    font-size: 14px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+#game-container {
+    display: grid;
+    grid-template-rows: 90px 1fr 120px;
+    grid-template-columns: 240px 1fr;
+    width: 1280px;
+    height: 850px;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.8);
+    background-color: var(--bg-panel);
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+/* Панели */
+#top-panel, #bottom-panel, #side-menu, #center-panel, #quest-panel {
+    background-color: var(--bg-panel);
+    border: 1px solid var(--border-color);
+    padding: 12px;
+}
+
+#top-panel {
+    grid-column: 1 / 3;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(90deg, #161b22 0%, #0d1117 100%);
+    border-bottom: 2px solid var(--accent-cyan);
+}
+
+#player-info-top {
+    display: flex;
+    align-items: center;
+}
+
+.player-avatar {
+    width: 56px;
+    height: 56px;
+    border: 2px solid var(--accent-cyan);
+    border-radius: 4px;
+    margin-right: 15px;
+    image-rendering: pixelated;
+    object-fit: cover;
+    box-shadow: 0 0 10px rgba(0, 242, 255, 0.3);
+}
+
+.player-name {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 12px;
+    color: var(--accent-cyan);
+    margin-bottom: 5px;
+    display: block;
+}
+
+.player-level-bar {
+    width: 150px;
+    height: 10px;
+    background-color: #21262d;
+    border: 1px solid var(--border-color);
+    position: relative;
+    border-radius: 5px;
+}
+
+.xp-bar {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent-blue), var(--accent-cyan));
+    transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 5px;
+}
+
+.xp-text {
+    position: absolute;
+    top: -15px;
+    right: 0;
+    font-size: 10px;
+    color: var(--text-dim);
+}
+
+#quest-panel {
+    width: 350px;
+    text-align: right;
+    border: none;
+    background: transparent;
+}
+
+.panel-header {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 8px;
+    color: var(--text-dim);
+    margin-bottom: 8px;
+    text-transform: uppercase;
+}
+
+.quest-title {
+    color: var(--accent-cyan);
+    font-weight: bold;
+    margin-bottom: 4px;
+}
+
+/* Боковое меню */
+#side-menu {
+    grid-row: 2 / 3;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 20px 0;
+    border-right: 1px solid var(--border-color);
+}
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    padding: 15px 25px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border-left: 4px solid transparent;
+}
+
+.menu-item:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+    color: var(--accent-cyan);
+}
+
+.menu-item.active {
+    background-color: rgba(0, 242, 255, 0.05);
+    border-left: 4px solid var(--accent-cyan);
+    color: var(--accent-cyan);
+}
+
+.menu-item img {
+    width: 24px;
+    height: 24px;
+    margin-right: 15px;
+    filter: drop-shadow(0 0 5px rgba(0, 242, 255, 0.5));
+}
+
+/* Центр */
+#center-panel {
+    background-color: #0d1117;
+    padding: 30px;
+}
+
+.content-section {
+    animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Нижняя панель */
+#bottom-panel {
+    grid-column: 1 / 3;
+    background-color: #0d1117;
+    border-top: 2px solid var(--border-color);
+}
+
+#player-stats-bottom {
+    display: flex;
+    gap: 20px;
+}
+
+#player-stats-bottom p {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--text-dim);
+}
+
+#player-stats-bottom span {
+    color: var(--accent-green);
+    font-weight: bold;
+}
+
+#notifications-area {
+    flex-grow: 1;
+    margin: 0 30px;
+}
+
+.notification-item {
+    background-color: #21262d;
+    border: 1px solid var(--border-color);
+    padding: 8px 15px;
+    margin-bottom: 5px;
+    border-radius: 4px;
+    font-size: 12px;
+}
+
+.notification-item.info { border-left: 4px solid var(--accent-cyan); }
+.notification-item.warning { border-left: 4px solid var(--accent-red); }
+
+/* Кнопки */
+button {
+    background-color: transparent;
+    border: 1px solid var(--accent-cyan);
+    color: var(--accent-cyan);
+    padding: 10px 20px;
+    cursor: pointer;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 8px;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+    text-transform: uppercase;
+}
+
+button:hover {
+    background-color: var(--accent-cyan);
+    color: var(--bg-dark);
+    box-shadow: 0 0 15px rgba(0, 242, 255, 0.5);
+}
+
+/* Формы */
+.library-form-card {
+    background-color: var(--bg-panel);
+    border: 1px solid var(--border-color);
+    padding: 25px;
+    border-radius: 8px;
+}
+
+input[type="text"], select {
+    width: 100%;
+    padding: 12px;
+    background-color: #0d1117;
+    border: 1px solid var(--border-color);
+    color: var(--text-main);
+    border-radius: 4px;
+    margin-bottom: 15px;
+    font-family: 'JetBrains Mono', monospace;
+}
+
+input:focus {
+    outline: none;
+    border-color: var(--accent-cyan);
+    box-shadow: 0 0 5px rgba(0, 242, 255, 0.2);
+}
+
+/* Артефакты и Инвентарь */
+.slot {
+    background-color: #0d1117;
+    border: 1px solid var(--border-color) !important;
+    transition: all 0.2s ease;
+}
+
+.slot:hover {
+    border-color: var(--accent-cyan) !important;
+    background-color: rgba(0, 242, 255, 0.05);
+}
+
+/* Академия */
+.academy-card {
+    background-color: #161b22;
+    border: 1px solid var(--border-color) !important;
+    border-radius: 8px;
+    transition: transform 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.academy-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--accent-cyan) !important;
+}
+
+#academy-training-block {
+    box-shadow: 0 0 20px rgba(0, 242, 255, 0.1);
+}
+
+/* Прокрутка */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: var(--bg-dark);
+}
+::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--text-dim);
+}
