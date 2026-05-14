@@ -657,7 +657,7 @@ const onReconnect = useCallback((oldEdge: any, newConnection: any) => {
             onEdgeDoubleClick={(_, edge) => { if (activeTool === 'cursor') { setSelectedElement(edge as AppEdge); setIsEdgeSelected(true); } }}
             onPaneClick={onPaneClick} nodeTypes={nodeTypes} edgeTypes={edgeTypes} defaultEdgeOptions={defaultEdgeOptions}
             onSelectionChange={onSelectionChange} fitView className={theme === 'dark' ? "bg-[#0B0F19]" : "bg-[#f3f4f6]"}
-            minZoom={0.1} maxZoom={4} connectionMode={ConnectionMode.Loose} snapGrid={[20, 20]} panOnDrag={activeTool === 'cursor'} selectionOnDrag={activeTool === 'cursor'} selectionKeyCode="Control" multiSelectionKeyCode="Control"
+            minZoom={0.1} maxZoom={4} connectionMode={ConnectionMode.Loose} snapToGrid={!activeTool.includes('pen')} snapGrid={[20, 20]} panOnDrag={activeTool === 'cursor'} selectionOnDrag={activeTool === 'cursor'} selectionKeyCode="Control" multiSelectionKeyCode="Control"
             onMouseDown={handleMouseDown} onMouseMove={handleMouseMove} onMouseUp={handleMouseUp} proOptions={{ hideAttribution: true }} 
             onConnectEnd={onConnectEnd}  // Обновленная функция
             onReconnect={onReconnect}    // Новая функция

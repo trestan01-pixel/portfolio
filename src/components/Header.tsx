@@ -53,7 +53,6 @@ const Header: React.FC = () => {
     { name: 'Метод', href: '#services', id: 'services' },
     { name: 'Опыт', href: '#experience', id: 'experience' },
     { name: 'Вопросы', href: '#faq', id: 'faq' }, 
-    { name: 'Игра', href: '/game/mainMenu.html', id: 'game', external: true },
   ];
 
   const scrollTo = (id: string) => {
@@ -91,17 +90,6 @@ const Header: React.FC = () => {
         {/* DESKTOP NAV */}
         <nav className="hidden xl:flex items-center bg-white/5 rounded-full px-1 py-0.5 border border-white/5">
             {navLinks.map((link) => (
-              link.external ? (
-                <a
-                  key={link.name}
-                  href={link.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`relative px-4 py-1.5 text-xs md:text-sm font-medium transition-colors rounded-full text-gray-400 hover:text-gray-200`}
-                >
-                  <span className="relative z-10">{link.name}</span>
-                </a>
-              ) : (
               <button
                 key={link.name}
                 onClick={() => scrollTo(link.href)}
@@ -118,7 +106,7 @@ const Header: React.FC = () => {
                 )}
                 <span className="relative z-10">{link.name}</span>
               </button>
-            )))}
+            ))}
         </nav>
 
         {/* RIGHT: WIDGET & CTA */}
@@ -174,17 +162,6 @@ const Header: React.FC = () => {
                  <SmartAvailability mode="simulated" className="w-full justify-center" />
               </div>
               {navLinks.map((link) => (
-                link.external ? (
-                  <a
-                    key={link.name}
-                    href={link.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-full text-left px-4 py-3 rounded-xl transition-all text-gray-300 hover:bg-white/5"
-                  >
-                    {link.name}
-                  </a>
-                ) : (
                 <button 
                   key={link.name}
                   onClick={() => scrollTo(link.href)}
@@ -196,7 +173,6 @@ const Header: React.FC = () => {
                 >
                   {link.name}
                 </button>
-                )
               ))}
             </div>
           </motion.div>
