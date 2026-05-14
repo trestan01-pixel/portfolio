@@ -38,13 +38,57 @@ let playerData = {
     stealth: 0,
     finance: 0,
     sport: 0,
+    // Элементальные характеристики
+    fire: 0,
+    water: 0,
+    wind: 0,
+    air: 0,
+    earth: 0,
+    darkness: 0,
+    light: 0,
+    // Ментальная сила и Артефакты
+    mentalPower: 100,
+    maxMentalPower: 100,
+    artifactMastery: 0,
+    // Прогресс и возраст
+    age: 16,
+    level: 1,
     xp: 70,
     xpToNextLevel: 100
 };
 
 // --- ФУНКЦИИ ИГРОВОЙ ЛОГИКИ И UI ---
 
-// ... (существующие функции playerData, updatePlayerStats, showSection, addIntellect, addNotification) ...
+function getAdvancedElements() {
+    let advanced = [];
+    if (playerData.earth > 0 && playerData.water > 0) advanced.push({ name: 'Грязь', power: playerData.earth + playerData.water });
+    if (playerData.water > 0 && playerData.earth > 0) { /* Дубликат логики пользователя для примера */ }
+
+    if (playerData.wind > 0 && playerData.fire > 0) advanced.push({ name: 'Молния', power: playerData.wind + playerData.fire });
+    if (playerData.fire > 0 && playerData.wind > 0) advanced.push({ name: 'Синее Пламя', power: playerData.fire * 1.5 + playerData.wind });
+
+    if (playerData.darkness > 0 && playerData.fire > 0) advanced.push({ name: 'Черное Пламя', power: playerData.darkness * 2 + playerData.fire });
+
+    return advanced;
+}
+
+function enroll(schoolName, type) {
+    if (playerData.school) {
+        addNotification('warning', `Вы уже учитесь в ${playerData.school.name}!`);
+        return;
+    }
+
+    playerData.school = {
+        name: schoolName,
+        type: type,
+        stage: 1,
+        progress: 0,
+        maxProgress: type === 'Elite' ? 100 : 50
+    };
+
+    addNotification('info', `Вы зачислены в ${schoolName} (${type})!`);
+    updatePlayerStats();
+}
 
 // --- ДАННЫЕ БИБЛИОТЕКИ ---
 let library = []; // Массив для хранения всех добавленных медиа-ресурсов
@@ -84,7 +128,14 @@ const statsKeywords = {
     'crafting':['крафт', 'создание', 'ремесло', 'кузница', 'инструменты'],
     'stealth': ['скрытность', 'стелс', 'тень', 'тишина'],
     'finance': ['финансы', 'деньги', 'экономика', 'монета'],
-    'sport':['спорт', 'бег', 'тренировка', 'выносливость']
+    'sport':['спорт', 'бег', 'тренировка', 'выносливость'],
+    'fire': ['огонь', 'пламя', 'жар', 'костер'],
+    'water': ['вода', 'влага', 'океан', 'река', 'дождь'],
+    'wind': ['ветер', 'поток', 'буря', 'ураган'],
+    'air': ['воздух', 'небо', 'атмосфера'],
+    'earth': ['земля', 'почва', 'камень', 'скала'],
+    'darkness': ['тьма', 'тень', 'мрак', 'ночь'],
+    'light': ['свет', 'сияние', 'солнце', 'день']
 };
 
 // Функция для добавления медиа-ресурса в библиотеку
@@ -134,6 +185,11 @@ function addMediaToLibrary() {
     updatePlayerStats(); // Обновляем отображение характеристик
     renderLibraryList();
     addNotification('info', `${title} (${type}) добавлен в библиотеку! Получены бонусы.`);
+
+    // Шанс найти артефакт
+    if (Math.random() < 0.2) {
+        findArtifact();
+    }
 
     // Очищаем форму
     document.getElementById('mediaTitle').value = '';
@@ -238,6 +294,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Показываем секцию "Поселение" по умолчанию при загрузке
     showSection('settlement');
     renderLibraryList(); // Отрисовываем список библиотеки при загрузке
+    renderInventory();
 });
 
 // Функция для обновления характеристик на экране
@@ -266,6 +323,26 @@ function updatePlayerStats() {
         const xpPercentage = (playerData.xp / playerData.xpToNextLevel) * 100;
         xpBar.style.width = `${xpPercentage}%`;
         xpText.innerText = `${playerData.xp}/${playerData.xpToNextLevel} Опыта`;
+    }
+
+    // Обновляем элементальные статы
+    const elements = ['fire', 'water', 'wind', 'earth', 'darkness', 'light'];
+    elements.forEach(el => {
+        const elSpan = document.getElementById(`stat-${el}`);
+        if (elSpan) elSpan.innerText = playerData[el];
+    });
+
+    // Обновляем комбинации
+    const advancedDiv = document.getElementById('advanced-elements');
+    if (advancedDiv) {
+        const advanced = getAdvancedElements();
+        advancedDiv.innerHTML = advanced.length > 0 ? 'Комбинации: ' + advanced.map(a => `${a.name}(${a.power})`).join(', ') : '';
+    }
+
+    // Обновляем ранг академии
+    const academyRank = document.getElementById('academy-rank');
+    if (academyRank) {
+        academyRank.innerText = playerData.school ? `${playerData.school.name} (Ступень ${playerData.school.stage})` : 'Нет';
     }
 }
 
@@ -307,6 +384,41 @@ function addIntellect() {
 }
 
 // Функция для добавления уведомлений
+function findArtifact() {
+    const artifactNames = ["Сфера Разума", "Древний Клинок", "Кольцо Стихий", "Ментальный Кристалл"];
+    const name = artifactNames[Math.floor(Math.random() * artifactNames.length)];
+    const newItem = {
+        id: Date.now(),
+        name: name,
+        type: 'artifact',
+        charges: 10,
+        maxCharges: 10,
+        durability: 100
+    };
+
+    if (!playerData.inventory) playerData.inventory = [];
+    playerData.inventory.push(newItem);
+    addNotification('info', `Вы нашли артефакт: ${name}!`);
+    renderInventory();
+}
+
+function renderInventory() {
+    const invList = document.getElementById('inventory-list');
+    if (!invList) return;
+    invList.innerHTML = '';
+
+    if (playerData.inventory) {
+        playerData.inventory.forEach(item => {
+            const div = document.createElement('div');
+            div.style.border = '1px solid #555';
+            div.style.padding = '5px';
+            div.style.fontSize = '8px';
+            div.textContent = item.name;
+            invList.appendChild(div);
+        });
+    }
+}
+
 function addNotification(type, message) {
     const notificationsArea = document.getElementById('notifications-area');
     if (!notificationsArea) return;
